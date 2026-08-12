@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ayush Singh — Backend & Systems Engineer</title>
 <!-- SVG Favicon (Terminal Icon) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080c14'/><path d='M8 10l6 6-6 6M16 22h8' stroke='%2300f2fe' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2306090e'/><path d='M8 10l6 6-6 6M16 22h8' stroke='%2300f2fe' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@
     --cyan-glow: rgba(0, 242, 254, 0.18);
     --blue: #4facfe;
     --gradient-accent: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-    --gradient-glow: linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(79, 172, 254, 0.15) 100%);
     --radius: 12px;
     --mono: 'JetBrains Mono', monospace;
     --sans: 'Inter', sans-serif;
@@ -71,9 +70,6 @@
     transform: translate(-50%, -50%);
     opacity: 0.6;
     transition: width 0.25s, height 0.25s, border-color 0.25s, background-color 0.25s;
-  }
-  body.hovering a, body.hovering button, body.hovering .proj-card {
-    /* cursor hover state triggers */
   }
 
   /* Custom Scrollbar */
@@ -155,7 +151,7 @@
   .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; padding: 4px; }
   .burger span { width: 22px; height: 2px; background: var(--text); display: block; transition: .3s; }
 
-  /* ---------- HERO BANNER (2-COLUMN GRID) ---------- */
+  /* ---------- HERO BANNER ---------- */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center;
@@ -167,7 +163,6 @@
     gap: 48px; align-items: center; width: 100%;
   }
 
-  /* Hero Left Side */
   .open-hire-badge {
     display: inline-flex; align-items: center; gap: 10px;
     background: rgba(0, 242, 254, 0.08); border: 1px solid var(--border-bright);
@@ -231,7 +226,6 @@
   .social-row a:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); background: var(--cyan-glow); }
   .social-row svg { width: 18px; height: 18px; }
 
-  /* Hero Right Side (Interactive Backend Terminal Code Window) */
   .code-window {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -260,15 +254,26 @@
   .code-comment { color: var(--muted-dark); font-style: italic; }
   .code-anno { color: #79c0ff; }
 
-  /* ---------- SECTION STRUCTURE & SPACING ---------- */
-  section { padding: 90px 0; position: relative; border-bottom: 1px solid rgba(255,255,255,0.03); }
-  .sec-head { margin-bottom: 36px; }
+  /* ---------- STRICT SECTION SPACING WITH EXACT 13px PADDING & MARGIN ---------- */
+  section { 
+    padding: 80px 0; 
+    position: relative; 
+    border-bottom: 1px solid rgba(255,255,255,0.03); 
+  }
   
-  /* Precision Spacing: 5-7px margin between tag and title */
+  .sec-head { 
+    margin-bottom: 26px; 
+    padding-bottom: 13px;
+  }
+  
+  /* 13px Padding and Margin Rules across Section Tags & Section Headers */
   .sec-tag {
     font-family: var(--mono); font-size: 12px; color: var(--cyan);
     letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 13px;
+    padding-bottom: 13px;
+    margin-top: 13px;
+    padding-top: 13px;
     display: flex; align-items: center; gap: 8px;
   }
   .sec-tag::before { content: '//'; color: var(--muted-dark); }
@@ -277,9 +282,18 @@
     font-family: var(--mono);
     font-size: clamp(26px, 3.5vw, 38px);
     font-weight: 800; letter-spacing: -0.5px;
-    margin-bottom: 6px;
+    margin-bottom: 13px;
+    padding-bottom: 13px;
+    margin-top: 13px;
+    padding-top: 13px;
   }
-  .sec-sub { color: var(--muted); max-width: 640px; font-size: 15px; }
+
+  .sec-sub { 
+    color: var(--muted); max-width: 640px; font-size: 15px; 
+    margin-top: 13px;
+    padding-top: 13px;
+    margin-bottom: 13px;
+  }
 
   /* ---------- ABOUT ---------- */
   .about-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: start; }
@@ -303,7 +317,7 @@
   .skill-panel:hover { border-color: var(--cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-4px); }
   .skill-panel h4 {
     font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: 1px;
-    text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    text-transform: uppercase; margin-bottom: 13px; padding-bottom: 13px; display: flex; align-items: center; gap: 8px;
   }
   .skill-panel h4::before { content: ''; width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; }
   .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -328,11 +342,11 @@
   }
   .proj-card:hover { transform: translateY(-6px); border-color: var(--border-bright); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
   .proj-card:hover::before { transform: scaleX(1); }
-  .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; padding-bottom: 13px; }
   .svc-id { font-family: var(--mono); font-size: 11px; color: var(--muted-dark); letter-spacing: 1px; }
   
-  .proj-title { font-family: var(--mono); font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .proj-sub { color: var(--cyan); font-size: 12.5px; margin-bottom: 12px; font-family: var(--mono); }
+  .proj-title { font-family: var(--mono); font-size: 18px; font-weight: 700; margin-bottom: 13px; padding-bottom: 13px; }
+  .proj-sub { color: var(--cyan); font-size: 12.5px; margin-bottom: 13px; font-family: var(--mono); }
   .proj-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
   .proj-feature { font-size: 13px; color: var(--muted); margin-bottom: 6px; padding-left: 16px; position: relative; }
   .proj-feature::before { content: '▸'; position: absolute; left: 0; color: var(--blue); }
@@ -382,7 +396,7 @@
     background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 24px 18px; text-align: center; transition: .3s ease;
   }
-  .ach-card:hover { transform: translateY(-50%); border-color: var(--cyan); transform: translateY(-4px); }
+  .ach-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
   .ach-num { font-family: var(--mono); font-size: 34px; font-weight: 800; color: var(--cyan); }
   .ach-label { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
   .ach-link { display: inline-block; margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--blue); border-bottom: 1px solid rgba(79, 172, 254, 0.3); }
@@ -439,7 +453,7 @@
   .form-msg.show { display: flex; }
   .form-msg.ok { background: var(--cyan-glow); color: var(--cyan); border: 1px solid var(--border-bright); }
 
-  /* ---------- FEATURE-RICH FOOTER ---------- */
+  /* ---------- FOOTER ---------- */
   footer {
     background: var(--bg-alt);
     border-top: 1px solid var(--border);
@@ -988,7 +1002,6 @@ function renderCursor() {
 }
 requestAnimationFrame(renderCursor);
 
-// Hover scaling triggers
 const hoverTargets = document.querySelectorAll('a, button, .proj-card, .btn');
 hoverTargets.forEach(el => {
   el.addEventListener('mouseenter', () => {
