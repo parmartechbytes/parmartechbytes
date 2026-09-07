@@ -1,1052 +1,1054 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayush Singh — Backend & Distributed Systems Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0d1117;
-    --bg-elevated: #161b22;
-    --bg-card: #1c2128;
-    --bg-inset: #090d12;
-    --border: #30363d;
-    --border-hover: #484f58;
-    --text: #e6edf3;
-    --text-dim: #8b949e;
-    --text-faint: #565f6c;
-    --blue: #58a6ff;
-    --blue-glow: rgba(88, 166, 255, 0.15);
-    --green: #3fb950;
-    --amber: #f0883e;
-    --purple: #bc8cff;
-    --cyan: #39c5cf;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Singh — Software Engineer & Backend Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090b10;
+      --bg-surface: #10141d;
+      --bg-elevated: #161b26;
+      --bg-glass: rgba(16, 20, 29, 0.75);
+      --border: #232a3b;
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --text: #f1f5f9;
+      --text-muted: #8b9bb4;
+      --text-dim: #4b556b;
+      
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #a855f7;
 
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
+      --font-ui: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(56, 189, 248, 0.06) 0%, transparent 40%);
+    }
 
-  body {
-    background-color: var(--bg);
-    background-image: 
-      radial-gradient(circle at 15% 10%, rgba(88, 166, 255, 0.05) 0%, transparent 40%),
-      radial-gradient(circle at 85% 60%, rgba(188, 140, 255, 0.04) 0%, transparent 50%),
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-  }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #fff; }
 
-  a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--blue); color: var(--bg-inset); }
+    /* Top Dev System Bar */
+    .sys-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(9, 11, 16, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .sys-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .sys-status { display: flex; align-items: center; gap: 8px; }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      background: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--blue);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
+    /* IDE Tab Navigation */
+    .tabs-nav {
+      display: flex;
+      overflow-x: auto;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      scrollbar-width: none;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.02); color: var(--text); }
+    .tab-btn.active {
+      background: var(--bg);
+      color: var(--cyan);
+      border-bottom: 2px solid var(--cyan);
+    }
 
-  /* ===== Top Window Chrome ===== */
-  .titlebar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 42px;
-    padding: 0 20px;
-    background: rgba(9, 13, 18, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .titlebar-left { display: flex; align-items: center; gap: 12px; }
-  .dots { display: flex; gap: 7px; }
-  .dot { width: 11px; height: 11px; border-radius: 50%; }
-  .dot-red { background: #ff5f56; }
-  .dot-yellow { background: #ffbd2e; }
-  .dot-green { background: #27c93f; }
-  .titlebar-label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-  .titlebar-status {
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--green);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .status-ping {
-    width: 7px;
-    height: 7px;
-    background: var(--green);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--green);
-  }
+    /* Main Grid Layout */
+    .workspace {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      max-width: 1440px;
+      margin: 0 auto;
+      min-height: calc(100vh - 84px);
+    }
 
-  /* ===== Tab Bar ===== */
-  .tabbar {
-    display: flex;
-    overflow-x: auto;
-    background: rgba(22, 27, 34, 0.95);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 42px;
-    z-index: 99;
-    scrollbar-width: none;
-  }
-  .tabbar::-webkit-scrollbar { display: none; }
-  .tab {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-dim);
-    padding: 10px 18px;
-    border: none;
-    border-right: 1px solid var(--border);
-    white-space: nowrap;
-    cursor: pointer;
-    background: transparent;
-    border-top: 2px solid transparent;
-    transition: all 0.2s ease;
-  }
-  .tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-  .tab.active {
-    color: var(--text);
-    background: var(--bg);
-    border-top: 2px solid var(--blue);
-  }
-  .tab .ext { color: var(--amber); }
+    /* Interactive Sidebar */
+    .explorer-sidebar {
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      background: var(--bg-surface);
+      position: sticky;
+      top: 84px;
+      height: calc(100vh - 84px);
+      overflow-y: auto;
+    }
+    .explorer-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      padding-left: 8px;
+    }
+    .file-tree { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .file-tree a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .file-tree a:hover, .file-tree a.active {
+      background: var(--bg-elevated);
+      color: #fff;
+      border-left: 3px solid var(--accent);
+    }
+    .badge-count {
+      margin-left: auto;
+      font-size: 10px;
+      background: var(--border);
+      padding: 2px 6px;
+      border-radius: 10px;
+      color: var(--text-muted);
+    }
 
-  /* ===== Main Grid Layout ===== */
-  .layout {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    max-width: 1300px;
-    margin: 0 auto;
-  }
+    /* Content Area */
+    .editor-canvas {
+      padding: 48px 56px;
+      overflow-y: auto;
+    }
+    .section-wrap {
+      margin-bottom: 96px;
+      scroll-margin-top: 110px;
+    }
 
-  .sidebar {
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-    position: sticky;
-    top: 84px;
-    height: calc(100vh - 84px);
-    overflow-y: auto;
-  }
-  .sidebar-heading {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    letter-spacing: 0.08em;
-    padding: 0 20px 12px;
-    font-weight: 600;
-  }
-  .file-item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    padding: 8px 20px;
-    cursor: pointer;
-    border-left: 2px solid transparent;
-    transition: all 0.15s ease;
-  }
-  .file-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-  .file-item.active {
-    color: var(--text);
-    border-left-color: var(--blue);
-    background: var(--blue-glow);
-  }
-  .file-item .ico { font-size: 10px; color: var(--text-faint); }
-  .file-item.active .ico { color: var(--blue); }
+    /* Typography & Titles */
+    .code-tag {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .section-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-dim);
+    }
 
-  main { min-width: 0; }
-  .section {
-    padding: 60px 48px;
-    border-bottom: 1px solid var(--border);
-  }
-  .section:last-of-type { border-bottom: none; }
+    /* Hero Area */
+    .hero-panel {
+      background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(16, 20, 29, 0.4) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cmd-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--cyan);
+      margin-bottom: 24px;
+    }
+    .hero-name {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero-role {
+      font-size: 1.3rem;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-bio {
+      max-width: 72ch;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-bio strong { color: var(--text); }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-primary:hover { background: #5053e6; transform: translateY(-1px); }
+    .btn-outline { background: var(--bg-elevated); color: var(--text); }
+    .btn-outline:hover { background: var(--border); }
 
-  .code-frame { display: flex; gap: 24px; }
-  .gutter {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-faint);
-    text-align: right;
-    user-select: none;
-    line-height: 2;
-    flex-shrink: 0;
-    opacity: 0.6;
-  }
-  .content { flex: 1; min-width: 0; }
+    /* Animated Stats Banner */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--cyan);
+      display: block;
+    }
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
 
-  .filepath {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    margin-bottom: 20px;
-  }
-  .filepath .sep { margin: 0 4px; }
-  .filepath .cur { color: var(--text-dim); }
+    /* Skills Terminal Matrix */
+    .skills-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .skill-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .skill-box:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-accent);
+    }
+    .skill-box-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 12px;
+    }
+    .skill-title {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--emerald);
+    }
+    .chips-flex { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chip::before {
+      content: '>';
+      color: var(--accent);
+      font-size: 10px;
+    }
 
-  /* ===== Hero Section ===== */
-  .prompt-line {
-    font-family: var(--font-mono);
-    font-size: 13.5px;
-    color: var(--green);
-    margin-bottom: 16px;
-  }
-  .prompt-line .sigil { color: var(--text-faint); margin-right: 8px; }
-  .cursor-blink {
-    display: inline-block;
-    width: 8px;
-    height: 16px;
-    background: var(--blue);
-    margin-left: 5px;
-    vertical-align: -2px;
-    animation: blink 1.1s steps(1) infinite;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
+    /* Systems Architecture Cards */
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+    }
+    .system-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .system-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      transform: translateY(-3px);
+    }
+    .card-ref {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .system-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .sub-model {
+      font-size: 13px;
+      color: var(--cyan);
+      margin-bottom: 14px;
+      font-family: var(--font-mono);
+    }
+    .system-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .system-features {
+      list-style: none;
+      margin-bottom: 20px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 14px;
+    }
+    .system-features li {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 18px;
+    }
+    .system-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--emerald);
+    }
+    .card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
 
-  h1.name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, #ffffff 40%, var(--text-dim) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .role {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    color: var(--blue);
-    margin-bottom: 20px;
-  }
-  .summary {
-    max-width: 68ch;
-    color: var(--text-dim);
-    font-size: 1.05rem;
-    line-height: 1.7;
-  }
-  .summary strong { color: var(--text); }
+    /* Client Work & Career Log */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-node {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-node:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .node-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .node-title { font-size: 1.15rem; font-weight: 700; }
+    .node-company { font-family: var(--font-mono); font-size: 13px; color: var(--cyan); }
+    .node-date { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-left: auto; }
+    .node-body { color: var(--text-muted); font-size: 14.5px; }
 
-  .hero-links {
-    display: flex;
-    gap: 12px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-  }
-  .btn {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    color: var(--text);
-    background: var(--bg-card);
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn:hover {
-    border-color: var(--border-hover);
-    background: rgba(255,255,255,0.05);
-    transform: translateY(-1px);
-  }
-  .btn.primary {
-    background: var(--blue);
-    color: #05101f;
-    border-color: var(--blue);
-    font-weight: 600;
-  }
-  .btn.primary:hover {
-    background: #79b8ff;
-    box-shadow: 0 0 20px rgba(88, 166, 255, 0.35);
-  }
+    /* Interactive Contact Terminal */
+    .term-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .term-header {
+      background: var(--bg);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ctrl-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-body {
+      padding: 24px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .term-row { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+    .term-prompt { color: var(--emerald); }
+    .term-val a { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
+    .term-val a:hover { color: #fff; }
 
-  /* ===== Metrics Strip ===== */
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 36px;
-  }
-  .metric-card {
-    background: var(--bg-inset);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 18px;
-    position: relative;
-    overflow: hidden;
-  }
-  .metric-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--blue);
-  }
-  .metric-val {
-    font-family: var(--font-display);
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.1;
-  }
-  .metric-lbl {
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--text-dim);
-    margin-top: 4px;
-  }
-
-  /* ===== Section Titles ===== */
-  h2.section-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.65rem;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-  h2.section-title .comment {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-faint);
-    font-weight: 400;
-  }
-
-  /* ===== Skills Section (JSON IDE View) ===== */
-  .skills-block {
-    background: var(--bg-inset);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px 28px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
-  }
-  .skg { margin: 10px 0; }
-  .skv { padding-left: 28px; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .key { color: var(--purple); font-weight: 500; }
-  .punct { color: var(--text-faint); }
-  .chip {
-    color: var(--green);
-    background: rgba(63, 185, 80, 0.08);
-    border: 1px solid rgba(63, 185, 80, 0.25);
-    padding: 3px 9px;
-    border-radius: 4px;
-    font-size: 12px;
-  }
-
-  /* ===== Experience Section (Git Log) ===== */
-  .commit {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 18px;
-    position: relative;
-    padding-bottom: 28px;
-  }
-  .commit-rail {
-    display: flex;
-    justify-content: center;
-    position: relative;
-  }
-  .commit-rail::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    bottom: -15px;
-    width: 2px;
-    background: var(--border);
-  }
-  .commit-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--blue);
-    margin-top: 6px;
-    z-index: 1;
-    box-shadow: 0 0 8px var(--blue);
-  }
-  .commit-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  .commit-hash { font-family: var(--font-mono); font-size: 12px; color: var(--amber); }
-  .commit-org { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; }
-  .commit-meta {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--cyan);
-    background: rgba(57, 197, 207, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
-  .commit-msg {
-    color: var(--text-dim);
-    line-height: 1.6;
-    margin-bottom: 12px;
-  }
-  .exp-bullets {
-    list-style: none;
-    margin-top: 8px;
-  }
-  .exp-bullets li {
-    position: relative;
-    padding-left: 18px;
-    margin-bottom: 6px;
-    color: var(--text-dim);
-    font-size: 14px;
-  }
-  .exp-bullets li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--blue);
-  }
-
-  /* ===== Projects Grid ===== */
-  .proj-tree {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-faint);
-    margin-bottom: 20px;
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-  .proj-card {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg-card);
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: all 0.2s ease;
-  }
-  .proj-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-  .proj-svc-id {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    text-transform: uppercase;
-  }
-  .proj-name-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .proj-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.2rem;
-  }
-  .proj-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--amber);
-    background: rgba(240, 136, 62, 0.12);
-    border: 1px solid rgba(240, 136, 62, 0.3);
-    padding: 2px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-  .proj-desc {
-    color: var(--text-dim);
-    font-size: 13.5px;
-    line-height: 1.55;
-  }
-  .proj-bullets {
-    list-style: none;
-    margin: 4px 0 8px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    padding-top: 8px;
-  }
-  .proj-bullets li {
-    font-size: 12.5px;
-    color: var(--text-dim);
-    position: relative;
-    padding-left: 14px;
-    margin-bottom: 4px;
-  }
-  .proj-bullets li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--text-faint);
-  }
-  .proj-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: auto;
-    padding-top: 8px;
-  }
-  .stack-pill {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--blue);
-    background: rgba(88, 166, 255, 0.08);
-    border: 1px solid rgba(88, 166, 255, 0.2);
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-
-  /* ===== Education & Client Work ===== */
-  .client-work-wrapper {
-    margin-top: 40px;
-    border-top: 1px dashed var(--border);
-    padding-top: 30px;
-  }
-  .client-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 16px;
-  }
-  .client-card {
-    background: var(--bg-inset);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .client-code { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); }
-  .client-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin: 4px 0; }
-  .client-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.45; }
-
-  .edu-item {
-    margin-bottom: 24px;
-    padding-left: 20px;
-    border-left: 2px solid var(--border);
-    position: relative;
-  }
-  .edu-item:last-child { margin-bottom: 0; }
-  .edu-degree { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; }
-  .edu-school { color: var(--text-dim); font-size: 14px; margin-top: 2px; }
-  .edu-year { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-top: 4px; }
-  .badge-progress {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--green);
-    border: 1px solid var(--green);
-    padding: 1px 7px;
-    border-radius: 12px;
-    margin-left: 8px;
-  }
-
-  /* ===== Terminal Contact ===== */
-  .terminal {
-    background: var(--bg-inset);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  .terminal-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: rgba(22, 27, 34, 0.8);
-    border-bottom: 1px solid var(--border);
-  }
-  .terminal-head span {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-left: 8px;
-  }
-  .terminal-body {
-    padding: 24px 26px;
-    font-family: var(--font-mono);
-    font-size: 13.5px;
-  }
-  .tline { margin-bottom: 12px; color: var(--text-dim); }
-  .tline:last-child { margin-bottom: 0; }
-  .tline .sigil { color: var(--green); margin-right: 10px; }
-  .tline .out { color: var(--text); font-weight: 500; }
-  .tline a.out:hover { color: var(--blue); text-decoration: underline; }
-  .tline .rem { color: var(--text-faint); margin: 0 4px; }
-
-  footer {
-    text-align: center;
-    padding: 36px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    border-top: 1px solid var(--border);
-  }
-
-  /* ===== Responsive Design ===== */
-  @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .section { padding: 40px 20px; }
-    .code-frame { gap: 0; }
-    .gutter { display: none; }
-    .projects-grid, .client-grid, .metrics-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    /* Responsive */
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; }
+      .explorer-sidebar { display: none; }
+      .editor-canvas { padding: 32px 20px; }
+      .systems-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Window Top Bar -->
-<div class="titlebar">
-  <div class="titlebar-left">
-    <div class="dots">
-      <span class="dot dot-red"></span>
-      <span class="dot dot-yellow"></span>
-      <span class="dot dot-green"></span>
+  <!-- Dev Control Bar -->
+  <header class="sys-header">
+    <div class="sys-bar">
+      <div class="sys-status">
+        <span class="pulse-dot"></span>
+        <span>NODE: AS-PROD-01 (ONLINE)</span>
+      </div>
+      <div>STACK: Java · Spring Boot · PHP · JavaScript · Distributed Systems</div>
+      <div>LOC: New Delhi / Remote</div>
     </div>
-    <span class="titlebar-label">ayush@production-node: ~</span>
-  </div>
-  <div class="titlebar-status">
-    <span class="status-ping"></span>
-    <span>SYSTEMS OPERATIONAL</span>
-  </div>
-</div>
+    <nav class="tabs-nav" aria-label="IDE Navigation Tabs">
+      <button class="tab-btn active" data-target="about">⚡ profile.java</button>
+      <button class="tab-btn" data-target="metrics">📊 metrics.sh</button>
+      <button class="tab-btn" data-target="stack">🛠️ stack.json</button>
+      <button class="tab-btn" data-target="registry">🚀 registry.sys</button>
+      <button class="tab-btn" data-target="client-work">💼 client_nda.log</button>
+      <button class="tab-btn" data-target="career">📜 career.log</button>
+      <button class="tab-btn" data-target="education">🎓 degree.md</button>
+      <button class="tab-btn" data-target="contact">📬 ping_me.sh</button>
+    </nav>
+  </header>
 
-<!-- Sticky Code Tabs -->
-<nav class="tabbar" aria-label="Editor tabs">
-  <button class="tab active" data-target="about">about<span class="ext">.java</span></button>
-  <button class="tab" data-target="metrics">metrics<span class="ext">.prom</span></button>
-  <button class="tab" data-target="skills">stack<span class="ext">.json</span></button>
-  <button class="tab" data-target="projects">registry<span class="ext">/</span></button>
-  <button class="tab" data-target="experience">career<span class="ext">.log</span></button>
-  <button class="tab" data-target="education">transcript<span class="ext">.md</span></button>
-  <button class="tab" data-target="contact">contact<span class="ext">.sh</span></button>
-</nav>
+  <div class="workspace">
+    <!-- Sidebar Explorer -->
+    <aside class="explorer-sidebar">
+      <div class="explorer-title">Workspace Explorer</div>
+      <ul class="file-tree">
+        <li><a href="#about" class="active"><span>📄</span> profile.java</a></li>
+        <li><a href="#metrics"><span>📈</span> metrics.sh</a></li>
+        <li><a href="#stack"><span>⚙️</span> stack.json <span class="badge-count">18+</span></a></li>
+        <li><a href="#registry"><span>📁</span> registry.sys <span class="badge-count">5</span></a></li>
+        <li><a href="#client-work"><span>🔒</span> client_nda.log <span class="badge-count">3</span></a></li>
+        <li><a href="#career"><span>📝</span> career.log</a></li>
+        <li><a href="#education"><span>🎓</span> degree.md</a></li>
+        <li><a href="#contact"><span>⚡</span> ping_me.sh</a></li>
+      </ul>
+      <div style="margin-top: 40px; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">SYSTEM TARGET</div>
+        <div style="font-size: 12px; color: var(--emerald); font-family: var(--font-mono); margin-top: 4px;">High-Load Backends &amp; Microservices</div>
+      </div>
+    </aside>
 
-<div class="layout">
-  <!-- Sidebar File Explorer -->
-  <aside class="sidebar">
-    <div class="sidebar-heading">SYSTEM WORKSPACE</div>
-    <div class="sidebar-list">
-      <div class="file-item active" data-target="about" tabindex="0"><span class="ico">●</span>about.java</div>
-      <div class="file-item" data-target="metrics" tabindex="0"><span class="ico">●</span>metrics.prom</div>
-      <div class="file-item" data-target="skills" tabindex="0"><span class="ico">●</span>stack.json</div>
-      <div class="file-item" data-target="projects" tabindex="0"><span class="ico">●</span>registry/</div>
-      <div class="file-item" data-target="experience" tabindex="0"><span class="ico">●</span>career.log</div>
-      <div class="file-item" data-target="education" tabindex="0"><span class="ico">●</span>transcript.md</div>
-      <div class="file-item" data-target="contact" tabindex="0"><span class="ico">●</span>contact.sh</div>
-    </div>
-  </aside>
+    <!-- Editor / Content Canvas -->
+    <main class="editor-canvas">
 
-  <main>
-
-    <!-- ABOUT SECTION -->
-    <section class="section" id="about">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05<br>06<br>07</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">about.java</span></div>
-          <p class="prompt-line"><span class="sigil">$</span>whoami<span class="cursor-blink"></span></p>
-          <h1 class="name">Ayush Singh</h1>
-          <p class="role">Backend &amp; Distributed Systems Engineer</p>
-          <p class="summary">
-            Specializing in production-grade backend engineering with <strong>Java</strong>, <strong>Spring Boot</strong>, and distributed infrastructure. Experienced in architecting <strong>fault-tolerant microservices</strong>, real-time message brokers with <strong>Kafka</strong> &amp; <strong>Redis</strong>, distributed concurrency control, and AI-assisted workflows using <strong>Spring AI</strong> and RAG pipelines.
+      <!-- SECTION: ABOUT -->
+      <section id="about" class="section-wrap">
+        <div class="hero-panel">
+          <div class="cmd-line">
+            <span>$</span> <span id="typewriter">system.init("Ayush Singh")</span>
+          </div>
+          <h1 class="hero-name">Ayush Singh</h1>
+          <div class="hero-role">
+            <span>Software Developer &amp; Backend Engineer</span>
+            <span style="font-size: 14px; color: var(--text-dim);">|</span>
+            <span style="font-size: 14px; color: var(--emerald); font-family: var(--font-mono);">Production Microservices</span>
+          </div>
+          <p class="hero-bio">
+            Specializing in high-concurrency systems, fault tolerance, and full-stack solutions. Comfortable designing low-latency architectures with <strong>Java, Spring Boot, Resilience4j, Kafka, and Redis</strong>, alongside full-lifecycle web engineering using <strong>PHP (Laravel), JavaScript (ES6+), and React.js</strong>.
           </p>
-
-          <div class="hero-links">
-            <a class="btn primary" href="#projects" data-target="projects">Explore Registry</a>
-            <a class="btn" href="https://github.com/parmartechbytes" target="_blank" rel="noopener">GitHub: @parmartechbytes ↗</a>
-            <a class="btn" href="mailto:ayushsingh11225@gmail.com">Contact Terminal</a>
+          <div class="hero-actions">
+            <a href="#registry" class="btn btn-primary">Inspect Major Systems</a>
+            <a href="#contact" class="btn btn-outline">Execute Contact Request</a>
+            <a href="https://github.com/parmartechbytes" target="_blank" rel="noopener" class="btn btn-outline">GitHub @parmartechbytes ↗</a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- METRICS SECTION -->
-    <section class="section" id="metrics">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">metrics.prom</span></div>
-          <h2 class="section-title">System Metrics <span class="comment">// quantitative technical benchmarks</span></h2>
-          <div class="metrics-grid">
-            <div class="metric-card">
-              <div class="metric-val">350+</div>
-              <div class="metric-lbl">DSA Problems Solved</div>
+      <!-- SECTION: METRICS -->
+      <section id="metrics" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Telemetry &amp; Metrics</h2>
+          <span class="section-meta">// quantitative runtime benchmarks</span>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <span class="metric-val" data-counter="350">0</span>
+            <div class="metric-label">DSA Problems Solved</div>
+            <div style="margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--emerald);">LeetCode &amp; GFG Verified</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-val" data-counter="5">0</span>
+            <div class="metric-label">Major Core Systems Built</div>
+            <div style="margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--cyan);">Kafka · Redis Locks · SSE</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-val" data-counter="3">0</span>
+            <div class="metric-label">Client NDA Portals Shipped</div>
+            <div style="margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--amber);">Education Sector Operations</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-val" data-counter="100">0</span>
+            <div class="metric-label">% Fault Tolerance Design</div>
+            <div style="margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--purple);">Circuit Breakers &amp; Fallbacks</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: STACK -->
+      <section id="stack" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Technical Matrix</h2>
+          <span class="section-meta">// runtime capabilities &amp; toolchains</span>
+        </div>
+        <div class="skills-matrix">
+          <div class="skill-box">
+            <div class="skill-box-head">
+              <span class="skill-title">Languages &amp; Core</span>
+              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim);">Tier 1</span>
             </div>
-            <div class="metric-card">
-              <div class="metric-val">5</div>
-              <div class="metric-lbl">Major Systems Built</div>
+            <div class="chips-flex">
+              <span class="chip">Java (Core &amp; Advanced)</span>
+              <span class="chip">SQL (PostgreSQL / MySQL)</span>
+              <span class="chip">PHP</span>
+              <span class="chip">JavaScript (ES6+)</span>
+              <span class="chip">HTML5 / CSS3</span>
             </div>
-            <div class="metric-card">
-              <div class="metric-val">3</div>
-              <div class="metric-lbl">Client Projects Shipped</div>
+          </div>
+
+          <div class="skill-box">
+            <div class="skill-box-head">
+              <span class="skill-title">Backend &amp; Frameworks</span>
+              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim);">Enterprise</span>
             </div>
-            <div class="metric-card">
-              <div class="metric-val">2</div>
-              <div class="metric-lbl">Active Profiles (LeetCode / GFG)</div>
+            <div class="chips-flex">
+              <span class="chip">Spring Boot</span>
+              <span class="chip">Spring AI</span>
+              <span class="chip">Resilience4j</span>
+              <span class="chip">RESTful Microservices</span>
+              <span class="chip">Webhooks Engine</span>
+              <span class="chip">Laravel (PHP)</span>
+            </div>
+          </div>
+
+          <div class="skill-box">
+            <div class="skill-box-head">
+              <span class="skill-title">Distributed &amp; Real-Time</span>
+              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim);">High Concurrency</span>
+            </div>
+            <div class="chips-flex">
+              <span class="chip">Apache Kafka</span>
+              <span class="chip">Redis (Locks / Cache)</span>
+              <span class="chip">WebSockets</span>
+              <span class="chip">Server-Sent Events (SSE)</span>
+              <span class="chip">Vector DB &amp; RAG</span>
+            </div>
+          </div>
+
+          <div class="skill-box">
+            <div class="skill-box-head">
+              <span class="skill-title">Frontend &amp; Architecture</span>
+              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim);">Interface &amp; Principles</span>
+            </div>
+            <div class="chips-flex">
+              <span class="chip">React.js</span>
+              <span class="chip">System Design</span>
+              <span class="chip">DSA</span>
+              <span class="chip">Concurrency Control</span>
+              <span class="chip">Docker &amp; Git</span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- SKILLS SECTION -->
-    <section class="section" id="skills">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">stack.json</span></div>
-          <h2 class="section-title">Technical Stack <span class="comment">// core infrastructure &amp; tools</span></h2>
-          
-          <div class="skills-block">
-            <div><span class="punct">{</span></div>
-
-            <div class="skg">
-              <div><span class="key">"languages_and_core"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">Java</span><span class="chip">SQL</span><span class="chip">JavaScript (ES6+)</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
-              </div>
-              <div><span class="punct">],</span></div>
-            </div>
-
-            <div class="skg">
-              <div><span class="key">"backend_and_frameworks"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">Spring Boot</span><span class="chip">Spring AI</span><span class="chip">Resilience4j</span><span class="chip">REST APIs</span><span class="chip">Webhooks</span>
-              </div>
-              <div><span class="punct">],</span></div>
-            </div>
-
-            <div class="skg">
-              <div><span class="key">"data_and_messaging"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Kafka</span><span class="chip">Vector DB</span><span class="chip">RAG</span>
-              </div>
-              <div><span class="punct">],</span></div>
-            </div>
-
-            <div class="skg">
-              <div><span class="key">"realtime_and_concurrency"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">WebSocket</span><span class="chip">SSE</span><span class="chip">Presence &amp; Delivery</span><span class="chip">Concurrency Control</span>
-              </div>
-              <div><span class="punct">],</span></div>
-            </div>
-
-            <div class="skg">
-              <div><span class="key">"engineering_practices"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">System Design</span><span class="chip">DSA</span><span class="chip">Fault Tolerance</span><span class="chip">Admin Analytics</span>
-              </div>
-              <div><span class="punct">],</span></div>
-            </div>
-
-            <div class="skg">
-              <div><span class="key">"frontend"</span><span class="punct">:</span> <span class="punct">[</span></div>
-              <div class="skv">
-                <span class="chip">React.js</span><span class="chip">HTML / CSS</span>
-              </div>
-              <div><span class="punct">]</span></div>
-            </div>
-
-            <div><span class="punct">}</span></div>
-          </div>
+      <!-- SECTION: REGISTRY (PROJECTS) -->
+      <section id="registry" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Major Production Systems</h2>
+          <span class="section-meta">// engineered for concurrency, fault tolerance, and streaming</span>
         </div>
-      </div>
-    </section>
+        <div class="systems-grid">
 
-    <!-- PROJECTS REGISTRY -->
-    <section class="section" id="projects">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05<br>06</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">registry/</span></div>
-          <h2 class="section-title">Major Projects <span class="comment">// production architectures</span></h2>
-          <div class="proj-tree">drwxr-xr-x 5 production systems built for high-concurrency &amp; fault resilience</div>
-
-          <div class="projects-grid">
-
-            <!-- SVC-01 -->
-            <div class="proj-card">
-              <div class="proj-svc-id">SVC-01 / payments</div>
-              <div class="proj-name-row">
-                <span class="proj-name">Payment Orchestration Platform</span>
-                <span class="proj-tag">Razorpay Model</span>
-              </div>
-              <p class="proj-desc">Integrated payment service handling order workflows, refund processing, automated retry routines, and webhook event delivery with admin visibility.</p>
-              <ul class="proj-bullets">
-                <li>Payment intents, settlement execution, and transaction ledgers</li>
-                <li>Resilient webhook retries, circuit breakers, and analytics</li>
-              </ul>
-              <div class="proj-stack">
-                <span class="stack-pill">Spring Boot</span>
-                <span class="stack-pill">Kafka</span>
-                <span class="stack-pill">Webhooks</span>
-                <span class="stack-pill">Resilience4j</span>
-              </div>
-            </div>
-
-            <!-- SVC-02 -->
-            <div class="proj-card">
-              <div class="proj-svc-id">SVC-02 / ai</div>
-              <div class="proj-name-row">
-                <span class="proj-name">Student AI Chat Platform</span>
-                <span class="proj-tag">ChatGPT Model</span>
-              </div>
-              <p class="proj-desc">Streaming AI chat application supporting student queries, document Q&amp;A, custom prompts, and placement preparation modes.</p>
-              <ul class="proj-bullets">
-                <li>Chat session persistence, dynamic model routing, and SSE response streaming</li>
-                <li>PDF context extraction, RAG knowledge lookup, and usage tracking</li>
-              </ul>
-              <div class="proj-stack">
-                <span class="stack-pill">Spring AI</span>
-                <span class="stack-pill">SSE</span>
-                <span class="stack-pill">RAG</span>
-                <span class="stack-pill">Vector DB</span>
-              </div>
-            </div>
-
-            <!-- SVC-03 -->
-            <div class="proj-card">
-              <div class="proj-svc-id">SVC-03 / realtime</div>
-              <div class="proj-name-row">
-                <span class="proj-name">Real-Time Messaging Platform</span>
-                <span class="proj-tag">WhatsApp Model</span>
-              </div>
-              <p class="proj-desc">High-concurrency direct and group messaging service supporting live connection state, presence tracking, and delivery receipts.</p>
-              <ul class="proj-bullets">
-                <li>Bidirectional WebSocket communication, typing indicators, and online status tracking</li>
-                <li>Delivery/read receipt events, group routing, and push notification triggers</li>
-              </ul>
-              <div class="proj-stack">
-                <span class="stack-pill">Spring Boot</span>
-                <span class="stack-pill">WebSocket</span>
-                <span class="stack-pill">Redis</span>
-                <span class="stack-pill">Kafka</span>
-              </div>
-            </div>
-
-            <!-- SVC-04 -->
-            <div class="proj-card">
-              <div class="proj-svc-id">SVC-04 / booking</div>
-              <div class="proj-name-row">
-                <span class="proj-name">Ticket Booking Platform</span>
-                <span class="proj-tag">BookMyShow Model</span>
-              </div>
-              <p class="proj-desc">Concurrency-safe event reservation backend equipped with seat inventory management, temporary holding locks, and transaction timeouts.</p>
-              <ul class="proj-bullets">
-                <li>Event scheduling, seat mapping engines, and search workflows</li>
-                <li>Distributed seat lock management, automatic timeouts, double-booking prevention</li>
-              </ul>
-              <div class="proj-stack">
-                <span class="stack-pill">Spring Boot</span>
-                <span class="stack-pill">Redis Locks</span>
-                <span class="stack-pill">Concurrency</span>
-              </div>
-            </div>
-
-            <!-- SVC-05 -->
-            <div class="proj-card" style="grid-column: 1 / -1;">
-              <div class="proj-svc-id">SVC-05 / storage</div>
-              <div class="proj-name-row">
-                <span class="proj-name">Cloud Storage Platform</span>
-                <span class="proj-tag">Google Drive Model</span>
-              </div>
-              <p class="proj-desc">Scalable object storage workspace supporting structured directory hierarchies, role-based access control (RBAC), file versioning, and instant search indexers.</p>
-              <ul class="proj-bullets">
-                <li>File metadata trees, secure link generation, and ACL permission layers</li>
-                <li>Chunked upload streams, object storage integrations, and search indexing</li>
-              </ul>
-              <div class="proj-stack">
-                <span class="stack-pill">Spring Boot</span>
-                <span class="stack-pill">Storage API</span>
-                <span class="stack-pill">ACL</span>
-                <span class="stack-pill">Search Indexing</span>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Enterprise Education Sector Work -->
-          <div class="client-work-wrapper">
-            <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text); margin-bottom:6px;">Education-Sector Deployments</h3>
-            <p style="color:var(--text-dim); font-size:13px; font-family:var(--font-mono);">Client systems engineered in Java for enterprise institutions (Agency employment; brand NDA applied).</p>
-            
-            <div class="client-grid">
-              <div class="client-card">
-                <div class="client-code">CLI-01 / education</div>
-                <div class="client-title">School Management System</div>
-                <div class="client-desc">Central administration system for student records, class schedules, administrative operations, and session logging.</div>
-              </div>
-              <div class="client-card">
-                <div class="client-code">CLI-02 / education</div>
-                <div class="client-title">Fee &amp; Attendance Portal</div>
-                <div class="client-desc">Automated fee payment collection, receipt generation, and daily attendance logging with administrative reporting.</div>
-              </div>
-              <div class="client-card">
-                <div class="client-code">CLI-03 / education</div>
-                <div class="client-title">Student–Teacher Portal</div>
-                <div class="client-desc">Communication hub enabling teacher-student notification delivery, assignment distribution, and institutional notice boards.</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- CAREER / EXPERIENCE -->
-    <section class="section" id="experience">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">career.log</span></div>
-          <h2 class="section-title">Experience <span class="comment">// git log --oneline</span></h2>
-
-          <div class="commit">
-            <div class="commit-rail"><div class="commit-dot"></div></div>
+          <!-- SVC-01 -->
+          <article class="system-card">
             <div>
-              <div class="commit-head">
-                <span class="commit-hash">feat(core)</span>
-                <span class="commit-org">AVSP Infotech</span>
-                <span class="commit-meta">Software Developer · Full-time</span>
+              <div class="card-ref">
+                <span>SVC-01 / payments</span>
+                <span>Modeled on Razorpay</span>
               </div>
-              <p class="commit-msg">IT Solutions &amp; Services Agency — Engineered and maintained production Java / Spring Boot backends for commercial and educational sector clients.</p>
-              <ul class="exp-bullets">
-                <li>Collaborated directly with education-sector stakeholders to translate functional business requirements into deployable microservices.</li>
-                <li>Owned end-to-end service lifecycle: relational database schema design, API development, unit testing, and production bug resolution.</li>
-                <li>Ensured high reliability and strict SLA uptime across production database-driven applications.</li>
+              <h3>Payment Orchestration Platform</h3>
+              <p class="sub-model">High-Reliability Financial Transaction Engine</p>
+              <p class="system-desc">Integrated payment service engineered to manage real-time checkout sessions, idempotent refund routines, and guaranteed webhook deliveries with administrative telemetry.</p>
+              <ul class="system-features">
+                <li>Payment intents, settlement execution, and transaction ledgers</li>
+                <li>Automated webhook retries, dead-letter queues, and circuit breakers</li>
               </ul>
             </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION / TRANSCRIPT -->
-    <section class="section" id="education">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">transcript.md</span></div>
-          <h2 class="section-title">Education</h2>
-          
-          <div class="edu-item">
-            <div class="edu-degree">Master of Computer Applications (MCA) — Computer Science <span class="badge-progress">Grade: A</span></div>
-            <div class="edu-school">Advanced Computing &amp; Systems Specialization</div>
-            <div class="edu-year">Jul 2026 – Jul 2028</div>
-          </div>
-
-          <div class="edu-item">
-            <div class="edu-degree">Bachelor of Computer Applications (BCA) — Computer Science</div>
-            <div class="edu-school">Core Computing Foundations &amp; Software Development</div>
-            <div class="edu-year">Jun 2021 – Jul 2024 · Completed</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT TERMINAL -->
-    <section class="section" id="contact">
-      <div class="code-frame">
-        <div class="gutter">01<br>02<br>03<br>04<br>05</div>
-        <div class="content">
-          <div class="filepath">~ <span class="sep">/</span> <span class="cur">contact.sh</span></div>
-          <h2 class="section-title">Terminal Access</h2>
-          
-          <div class="terminal">
-            <div class="terminal-head">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
-              <span>bash — session: ayush-direct</span>
+            <div class="card-footer">
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">Kafka</span>
+              <span class="tech-pill">Webhooks</span>
+              <span class="tech-pill">Resilience4j</span>
+              <span class="tech-pill">PostgreSQL</span>
             </div>
-            <div class="terminal-body">
-              <div class="tline"><span class="sigil">$</span>cat email.txt <span class="rem">→</span> <a class="out" href="mailto:ayushsingh11225@gmail.com">ayushsingh11225@gmail.com</a></div>
-              <div class="tline"><span class="sigil">$</span>cat whatsapp.txt <span class="rem">→</span> <a class="out" href="https://wa.me/918307571831" target="_blank" rel="noopener">+91 83075 71831</a></div>
-              <div class="tline"><span class="sigil">$</span>cat phone.txt <span class="rem">→</span> <a class="out" href="tel:+918307571831">+91 83075 71831</a></div>
-              <div class="tline"><span class="sigil">$</span>cat github.txt <span class="rem">→</span> <a class="out" href="https://github.com/parmartechbytes" target="_blank" rel="noopener">github.com/parmartechbytes</a></div>
-              <div class="tline"><span class="sigil">$</span>echo $STATUS <span class="rem">→</span> <span class="out" style="color:var(--green);">Available for Backend &amp; Distributed Systems Engineering roles</span></div>
+          </article>
+
+          <!-- SVC-02 -->
+          <article class="system-card">
+            <div>
+              <div class="card-ref">
+                <span>SVC-02 / ai</span>
+                <span>Modeled on ChatGPT</span>
+              </div>
+              <h3>Student AI Chat Platform</h3>
+              <p class="sub-model">Low-Latency SSE Streaming with Document RAG</p>
+              <p class="system-desc">AI assistant delivering real-time streaming answers for student document queries, dynamic syllabus exploration, and placement interview simulations.</p>
+              <ul class="system-features">
+                <li>Server-Sent Events (SSE) token streaming with session persistence</li>
+                <li>PDF context extraction, Vector embeddings, and knowledge RAG</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="tech-pill">Spring AI</span>
+              <span class="tech-pill">SSE</span>
+              <span class="tech-pill">Vector DB</span>
+              <span class="tech-pill">RAG</span>
+              <span class="tech-pill">React.js</span>
+            </div>
+          </article>
+
+          <!-- SVC-03 -->
+          <article class="system-card">
+            <div>
+              <div class="card-ref">
+                <span>SVC-03 / realtime</span>
+                <span>Modeled on WhatsApp</span>
+              </div>
+              <h3>Real-Time Messaging Platform</h3>
+              <p class="sub-model">Distributed Concurrency &amp; Event Sinks</p>
+              <p class="system-desc">High-throughput messaging architecture supporting persistent full-duplex socket connections, presence tracking, and reliable message sequencing.</p>
+              <ul class="system-features">
+                <li>Bidirectional WebSocket piping with live presence states</li>
+                <li>Distributed pub/sub event routing and read/delivery receipts</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">WebSocket</span>
+              <span class="tech-pill">Redis</span>
+              <span class="tech-pill">Kafka</span>
+            </div>
+          </article>
+
+          <!-- SVC-04 -->
+          <article class="system-card">
+            <div>
+              <div class="card-ref">
+                <span>SVC-04 / booking</span>
+                <span>Modeled on BookMyShow</span>
+              </div>
+              <h3>High-Concurrency Ticket Engine</h3>
+              <p class="sub-model">Atomic Seat Locks &amp; Timeout Routines</p>
+              <p class="system-desc">Concurrency-safe event reservation system preventing double-booking through distributed in-memory locking and temporary holding leases.</p>
+              <ul class="system-features">
+                <li>Temporary distributed locks with automatic timeout expirations</li>
+                <li>Strict transaction isolation and seating grid state synchronization</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">Redis Locks</span>
+              <span class="tech-pill">Payments</span>
+              <span class="tech-pill">Concurrency</span>
+            </div>
+          </article>
+
+          <!-- SVC-05 -->
+          <article class="system-card">
+            <div>
+              <div class="card-ref">
+                <span>SVC-05 / storage</span>
+                <span>Modeled on Google Drive</span>
+              </div>
+              <h3>Cloud Storage &amp; Virtual File Tree</h3>
+              <p class="sub-model">Hierarchical Access Control &amp; Streaming</p>
+              <p class="system-desc">Object storage platform featuring nested directory hierarchies, role-based access control (RBAC), chunked upload pipelines, and fast indexing.</p>
+              <ul class="system-features">
+                <li>Virtual directory metadata hierarchy with ACL rules</li>
+                <li>Chunked stream transfers and instantaneous file search</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">Blob Storage</span>
+              <span class="tech-pill">ACL Engine</span>
+              <span class="tech-pill">Search Indexer</span>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- SECTION: CLIENT WORK -->
+      <section id="client-work" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Client Deployments</h2>
+          <span class="section-meta">// education-sector solutions delivered under NDA</span>
+        </div>
+        <div class="systems-grid">
+          <div class="system-card">
+            <div class="card-ref"><span>CLI-01 / education</span><span>NDA Protected</span></div>
+            <h3>School Management System</h3>
+            <p class="system-desc">Central administration system for student lifecycle management, timetable scheduling, academic session archival, and faculty workflows.</p>
+            <div class="card-footer">
+              <span class="tech-pill">Java</span>
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">SQL</span>
+              <span class="tech-pill">JavaScript</span>
+            </div>
+          </div>
+          <div class="system-card">
+            <div class="card-ref"><span>CLI-02 / education</span><span>NDA Protected</span></div>
+            <h3>Fee &amp; Attendance Portal</h3>
+            <p class="system-desc">Automated accounting portal enabling online invoice settlements, automated receipt issuance, and biometric attendance log reconciliation.</p>
+            <div class="card-footer">
+              <span class="tech-pill">Java</span>
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">Rest APIs</span>
+            </div>
+          </div>
+          <div class="system-card">
+            <div class="card-ref"><span>CLI-03 / education</span><span>NDA Protected</span></div>
+            <h3>Student–Teacher Portal</h3>
+            <p class="system-desc">Bi-directional institutional communication hub powering digital assignment hand-ins, grading records, and announcement dispatches.</p>
+            <div class="card-footer">
+              <span class="tech-pill">Java</span>
+              <span class="tech-pill">Spring Boot</span>
+              <span class="tech-pill">REST Services</span>
+              <span class="tech-pill">React</span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </main>
-</div>
+      <!-- SECTION: CAREER LOG -->
+      <section id="career" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Career Experience</h2>
+          <span class="section-meta">// git commit log</span>
+        </div>
+        <div class="timeline">
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+            <div class="node-header">
+              <div class="node-title">Software Developer</div>
+              <div class="node-company">AVSP Infotech</div>
+              <div class="node-date">Full-time</div>
+            </div>
+            <p class="node-body">
+              Engineered and maintained production Java / Spring Boot backends and client web services. Translated institutional requirements into modular microservices, crafted relational database schemas, built REST interfaces, and owned deployment operations.
+            </p>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+            <div class="node-header">
+              <div class="node-title">Web &amp; Full Stack Development</div>
+              <div class="node-company">Web Engagements &amp; Freelance Systems</div>
+              <div class="node-date">2021 — Present</div>
+            </div>
+            <p class="node-body">
+              Built end-to-end full-stack web architectures utilizing PHP (Laravel), SQL, and modern JavaScript. Implemented automated data management systems, PDF rendering engines, and high-conversion client platforms.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<footer>
-  Ayush Singh — Distributed Systems &amp; Backend Engineering Portfolio · Generated 2026
-</footer>
+      <!-- SECTION: EDUCATION -->
+      <section id="education" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Academic Credentials</h2>
+          <span class="section-meta">// qualifications &amp; degrees</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <div class="skill-box">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--emerald); margin-bottom: 8px;">ENROLLED / ADVANCED</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 4px;">Master of Computer Applications (MCA)</h3>
+            <div style="color: var(--cyan); font-size: 14px; margin-bottom: 6px;">Computer Science</div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);">Jul 2026 – Jul 2028 · Grade: A</div>
+          </div>
+          <div class="skill-box">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">GRADUATED</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 4px;">Bachelor of Computer Applications (BCA)</h3>
+            <div style="color: var(--cyan); font-size: 14px; margin-bottom: 6px;">Computer Science</div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);">Jun 2021 – Jul 2024 · Completed</div>
+          </div>
+        </div>
+      </section>
 
-<script>
-  const sections = ['about','metrics','skills','projects','experience','education','contact'].map(id => document.getElementById(id));
-  const tabs = document.querySelectorAll('.tab');
-  const fileItems = document.querySelectorAll('.file-item');
+      <!-- SECTION: CONTACT / TERMINAL -->
+      <section id="contact" class="section-wrap">
+        <div class="section-head">
+          <h2 class="section-title">Connect &amp; Dispatch</h2>
+          <span class="section-meta">// direct socket communication</span>
+        </div>
+        <div class="term-window">
+          <div class="term-header">
+            <div class="ctrl-dot" style="background:#ef4444;"></div>
+            <div class="ctrl-dot" style="background:#f59e0b;"></div>
+            <div class="ctrl-dot" style="background:#10b981;"></div>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-left: 8px;">bash — session: ayush@devbox</span>
+          </div>
+          <div class="term-body">
+            <div class="term-row">
+              <span class="term-prompt">ayush@devbox:~$</span>
+              <span>echo $EMAIL</span>
+              <span class="term-val"><a href="mailto:ayushsingh11225@gmail.com">ayushsingh11225@gmail.com</a></span>
+            </div>
+            <div class="term-row">
+              <span class="term-prompt">ayush@devbox:~$</span>
+              <span>echo $PHONE_WHATSAPP</span>
+              <span class="term-val"><a href="https://wa.me/918307571831" target="_blank" rel="noopener">+91 83075 71831</a></span>
+            </div>
+            <div class="term-row">
+              <span class="term-prompt">ayush@devbox:~$</span>
+              <span>git remote -v</span>
+              <span class="term-val"><a href="https://github.com/parmartechbytes" target="_blank" rel="noopener">github.com/parmartechbytes</a></span>
+            </div>
+            <div class="term-row">
+              <span class="term-prompt">ayush@devbox:~$</span>
+              <span>systemctl status availability</span>
+              <span style="color: var(--emerald);">● active (open to backend &amp; full stack software engineering positions)</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  function setActive(id) {
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.target === id));
-    fileItems.forEach(f => f.classList.toggle('active', f.dataset.target === id));
-  }
+    </main>
+  </div>
 
-  document.querySelectorAll('[data-target]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      const target = el.dataset.target;
-      if(target) {
-        e.preventDefault();
-        const sectionEl = document.getElementById(target);
-        if (sectionEl) {
-          sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  <script>
+    // Smooth Scroll Navigation Handler
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const sideLinks = document.querySelectorAll('.file-tree a');
+
+    function syncActiveNav(targetId) {
+      tabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.target === targetId));
+      sideLinks.forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        link.classList.toggle('active', href === targetId);
+      });
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Intersection Observer for Scrollspy
+    const sections = document.querySelectorAll('.section-wrap');
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          syncActiveNav(entry.target.id);
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+
+    sections.forEach(sec => scrollObserver.observe(sec));
+
+    // Animated Numbers Counter on Viewport Entry
+    const counterElements = document.querySelectorAll('[data-counter]');
+    let countersStarted = false;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersStarted) {
+          countersStarted = true;
+          counterElements.forEach(counter => {
+            const target = +counter.getAttribute('data-counter');
+            let current = 0;
+            const increment = target / 40;
+            const updateCount = () => {
+              current += increment;
+              if (current < target) {
+                counter.innerText = Math.ceil(current) + '+';
+                requestAnimationFrame(updateCount);
+              } else {
+                counter.innerText = target + (target >= 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const metricSec = document.getElementById('metrics');
+    if (metricSec) counterObserver.observe(metricSec);
+
+    // Typewriter Simulation for Terminal Header
+    const typewriterEl = document.getElementById('typewriter');
+    const textQueue = [
+      'system.init("Ayush Singh")',
+      'loadModule("Spring Boot & Distributed Microservices")',
+      'mountStorage("PostgreSQL + Redis + Kafka")',
+      'ready()'
+    ];
+    let qIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeLoop() {
+      const currentWord = textQueue[qIndex];
+      if (!isDeleting) {
+        typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentWord.length) {
+          isDeleting = true;
+          setTimeout(typeLoop, 2200);
+          return;
+        }
+      } else {
+        typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          qIndex = (qIndex + 1) % textQueue.length;
         }
       }
-    });
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setActive(entry.target.id);
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-
-  sections.forEach(s => {
-    if (s) observer.observe(s);
-  });
-</script>
-
+      setTimeout(typeLoop, isDeleting ? 30 : 60);
+    }
+    typeLoop();
+  </script>
 </body>
 </html>
