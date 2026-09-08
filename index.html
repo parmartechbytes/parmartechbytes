@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Ayush Singh — AS-OS v3.14</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,7 @@
     --win-light: #ffffff;
     --win-dark: #808080;
     --win-black: #000000;
+    --win-navy: #000080;
     --dos-font: 'VT323', monospace;
   }
 
@@ -25,18 +26,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
     user-select: none;
   }
 
   html, body {
     width: 100%;
     height: 100%;
+    height: 100dvh;
     overflow: hidden;
     background-color: #000;
     font-family: var(--dos-font);
     color: var(--dos-white);
     font-size: 20px;
     letter-spacing: 0.5px;
+    position: fixed;
   }
 
   /* CRT Scanline & Phosphor Overlay */
@@ -44,10 +48,10 @@
     content: " ";
     display: block;
     position: fixed;
-    top: 0; left: 0; bottom: 0; right: 0;
+    inset: 0;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    z-index: 9999;
+    z-index: 99999;
     background-size: 100% 3px, 3px 100%;
     pointer-events: none;
   }
@@ -60,27 +64,29 @@
     inset: 0;
     background: #000;
     color: var(--dos-green);
-    padding: 40px 60px;
+    padding: 24px;
     z-index: 5000;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: auto;
   }
 
   .bios-line {
-    margin-bottom: 8px;
-    font-size: 24px;
+    margin-bottom: 6px;
+    font-size: 20px;
+    line-height: 1.2;
     white-space: pre-wrap;
     opacity: 0;
   }
   .bios-white { color: #ffffff; }
 
   .progress-wrap {
-    margin-top: 40px;
-    width: 60%;
-    max-width: 600px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 480px;
     border: 2px solid var(--dos-green);
-    height: 24px;
+    height: 22px;
     position: relative;
     display: none;
   }
@@ -90,14 +96,14 @@
     background: var(--dos-green);
   }
   .progress-text {
-    margin-top: 10px;
-    font-size: 22px;
+    margin-top: 8px;
+    font-size: 20px;
     color: var(--dos-green);
     display: none;
   }
 
   /* ========================================================
-     STAGE 2: SPLASH SCREEN (BLUE RETRO INTRO)
+     STAGE 2: SPLASH SCREEN
      ======================================================== */
   #splashScreen {
     position: fixed;
@@ -107,37 +113,40 @@
     display: none;
     align-items: center;
     justify-content: center;
+    padding: 16px;
   }
 
   .splash-box {
     border: 3px double #ffffff;
-    box-shadow: 14px 14px 0 rgba(0,0,0,0.6);
-    padding: 30px 45px;
-    max-width: 640px;
-    width: 90%;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.6);
+    padding: 20px 24px;
+    max-width: 580px;
+    width: 100%;
     text-align: center;
     background: var(--dos-blue);
   }
 
   .ascii-banner {
     color: var(--dos-green);
-    font-size: 24px;
+    font-size: 16px;
     line-height: 1.1;
     white-space: pre;
     display: inline-block;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+    max-width: 100%;
+    overflow-x: auto;
   }
 
   .splash-sub {
     font-size: 22px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   .splash-role {
-    font-size: 19px;
+    font-size: 18px;
     color: #cbd5e1;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .splash-btn {
@@ -147,14 +156,14 @@
     border: 2px solid #ffffff;
     color: var(--dos-green);
     font-family: var(--dos-font);
-    font-size: 24px;
-    padding: 10px;
+    font-size: 22px;
+    padding: 8px;
     cursor: pointer;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     text-align: center;
     transition: all 0.1s;
   }
-  .splash-btn:hover {
+  .splash-btn:hover, .splash-btn:active {
     background: var(--dos-green);
     color: #000000;
     border-color: var(--dos-green);
@@ -163,15 +172,15 @@
     color: var(--dos-amber);
     border-color: #ffffff;
   }
-  .splash-btn.tetris-btn:hover {
+  .splash-btn.tetris-btn:hover, .splash-btn.tetris-btn:active {
     background: var(--dos-amber);
     color: #000;
   }
 
   .splash-footer {
-    font-size: 16px;
-    color: #94a3b8;
-    margin-top: 8px;
+    font-size: 15px;
+    color: #cbd5e1;
+    margin-top: 6px;
   }
 
   /* ========================================================
@@ -184,48 +193,59 @@
     display: none;
     flex-direction: column;
     justify-content: space-between;
+    height: 100dvh;
   }
 
-  /* Top Status Ribbon */
   .desktop-topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6px 18px;
-    font-size: 19px;
-    background: rgba(0, 0, 0, 0.15);
+    padding: 6px 14px;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    z-index: 10;
   }
   .status-tag {
     color: var(--dos-green);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .status-tag::before {
     content: "●";
     color: var(--dos-green);
   }
+  .top-links {
+    display: flex;
+    gap: 12px;
+  }
   .top-links a {
     color: #fff;
-    margin-left: 16px;
     text-decoration: underline;
+    font-size: 17px;
   }
 
-  /* Desktop Work Area with Icons */
+  /* Desktop Work Area */
   .desktop-canvas {
     flex: 1;
     position: relative;
     overflow: hidden;
   }
 
+  /* Desktop Icons Grid */
   .desktop-icons {
     position: absolute;
-    right: 32px;
-    top: 24px;
+    right: 18px;
+    top: 16px;
     display: grid;
-    grid-template-columns: repeat(2, 85px);
-    gap: 24px 18px;
+    grid-template-columns: repeat(2, 75px);
+    gap: 16px 10px;
     text-align: center;
+    z-index: 20;
   }
 
   .desktop-icon {
@@ -233,61 +253,60 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    padding: 6px;
-    border-radius: 4px;
+    padding: 4px;
+    border-radius: 2px;
   }
-  .desktop-icon:hover {
-    background: rgba(255, 255, 255, 0.15);
+  .desktop-icon:active, .desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
     outline: 1px dotted #ffffff;
   }
   .desktop-icon .icon-img {
-    font-size: 34px;
+    font-size: 28px;
     line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
   .desktop-icon span {
-    font-size: 18px;
+    font-size: 16px;
     text-shadow: 1px 1px 2px #000;
   }
 
   /* ========================================================
-     WIN95 / DOS WINDOW CHROME
+     WIN95 / DOS WINDOW CHROME (RESPONSIVE)
      ======================================================== */
   .window {
     position: absolute;
     background: var(--dos-blue);
-    border-top: 3px solid var(--win-light);
-    border-left: 3px solid var(--win-light);
-    border-right: 3px solid var(--win-dark);
-    border-bottom: 3px solid var(--win-dark);
-    box-shadow: 6px 6px 0 rgba(0,0,0,0.5);
-    min-width: 320px;
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-dark);
+    border-bottom: 2px solid var(--win-dark);
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
     z-index: 100;
+    max-width: 96vw;
+    width: 580px;
+    display: none;
   }
 
   .window-titlebar {
     background: var(--win-gray);
     color: var(--win-black);
-    padding: 2px 6px;
+    padding: 3px 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 19px;
+    font-size: 18px;
     font-weight: bold;
     cursor: move;
     border-bottom: 2px solid var(--win-dark);
-    background-image: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.2) 2px,
-      rgba(0,0,0,0.2) 4px
-    );
+    touch-action: none;
   }
 
   .window-title-text {
     background: var(--win-gray);
     padding: 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .window-controls {
@@ -300,8 +319,8 @@
     border-left: 1.5px solid var(--win-light);
     border-right: 1.5px solid var(--win-black);
     border-bottom: 1.5px solid var(--win-black);
-    width: 20px;
-    height: 18px;
+    width: 22px;
+    height: 20px;
     font-size: 14px;
     line-height: 1;
     display: flex;
@@ -319,148 +338,211 @@
   }
 
   .window-content {
-    padding: 18px;
-    max-height: 480px;
+    padding: 14px;
+    max-height: 60vh;
     overflow-y: auto;
     color: #fff;
-    font-size: 20px;
+    font-size: 19px;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Specific Window: Terminal */
-  #winTerminal {
-    top: 50px;
-    left: 70px;
-    width: 620px;
-  }
-  .term-history {
-    line-height: 1.35;
-    margin-bottom: 12px;
-  }
+  /* Specific Window Geometry defaults */
+  #winTerminal { top: 25px; left: 25px; width: 600px; }
+  #winLogs { top: 40px; left: 40px; width: 540px; }
+  #winStack { top: 60px; left: 60px; width: 500px; }
+  #winProjects { top: 35px; left: 50px; width: 580px; }
+  #winTetris { top: 20px; left: 35px; width: 330px; }
+
+  /* Terminal Elements */
+  .term-history { line-height: 1.3; margin-bottom: 10px; }
   .term-history .green { color: var(--dos-green); }
   .term-history .amber { color: var(--dos-amber); }
-  .term-input-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .term-input-row { display: flex; align-items: center; gap: 6px; }
   .term-input {
     background: transparent;
     border: none;
     outline: none;
     color: #ffffff;
     font-family: var(--dos-font);
-    font-size: 20px;
+    font-size: 19px;
     flex: 1;
     caret-color: var(--dos-green);
+    min-width: 0;
   }
 
-  /* Specific Window: Logs / Experience */
-  #winLogs {
-    top: 100px;
-    left: 110px;
-    width: 540px;
-    display: none;
-  }
+  /* Logs, Stack & Project Cards */
   .log-date { color: var(--dos-amber); font-weight: bold; }
-  .log-title { color: #fff; font-size: 22px; margin-bottom: 4px; }
-  .log-item { margin-bottom: 18px; }
-  .log-bullet { padding-left: 14px; position: relative; color: #cbd5e1; }
+  .log-title { color: #fff; font-size: 20px; margin-bottom: 2px; }
+  .log-item { margin-bottom: 14px; }
+  .log-bullet { padding-left: 14px; position: relative; color: #cbd5e1; font-size: 17px; }
   .log-bullet::before { content: "›"; position: absolute; left: 0; color: var(--dos-green); }
 
-  /* Specific Window: Tech Stack */
-  #winStack {
-    top: 130px;
-    left: 360px;
-    width: 480px;
-    display: none;
+  .stack-category { color: var(--dos-green); margin-top: 8px; margin-bottom: 2px; font-weight: bold; }
+  .stack-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .stack-pill {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--win-light);
+    padding: 1px 6px;
+    font-size: 16px;
   }
-  .stack-category { color: var(--dos-green); margin-top: 10px; margin-bottom: 4px; font-weight: bold; }
 
-  /* Specific Window: Projects */
-  #winProjects {
-    top: 80px;
-    left: 200px;
-    width: 580px;
-    display: none;
-  }
   .proj-card {
     border-bottom: 1px dashed rgba(255,255,255,0.3);
-    padding-bottom: 12px;
-    margin-bottom: 14px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
   }
-  .proj-title { color: var(--dos-green); font-size: 22px; font-weight: bold; }
-  .proj-tags { color: var(--dos-amber); font-size: 17px; margin-top: 4px; }
+  .proj-title { color: var(--dos-green); font-size: 20px; font-weight: bold; }
+  .proj-tags { color: var(--dos-amber); font-size: 16px; margin-top: 3px; }
 
-  /* Specific Window: Tetris */
-  #winTetris {
-    top: 40px;
-    left: 250px;
-    width: 340px;
-    display: none;
-  }
+  /* Tetris & On-Screen Arcade Controls */
   #tetrisCanvas {
     background: #000;
     border: 2px solid var(--win-gray);
     display: block;
     margin: 0 auto;
+    max-width: 100%;
   }
   .tetris-info {
     display: flex;
     justify-content: space-between;
+    margin: 6px 0;
+    font-size: 17px;
+  }
+  .tetris-dpad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
     margin-top: 8px;
+  }
+  .dpad-btn {
+    background: var(--win-gray);
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-black);
+    border-bottom: 2px solid var(--win-black);
+    font-family: var(--dos-font);
     font-size: 18px;
+    font-weight: bold;
+    padding: 8px 2px;
+    color: #000;
+    cursor: pointer;
+    text-align: center;
+  }
+  .dpad-btn:active {
+    border-top: 2px solid var(--win-black);
+    border-left: 2px solid var(--win-black);
+    border-right: 2px solid var(--win-light);
+    border-bottom: 2px solid var(--win-light);
+    background: #a0a0a0;
   }
 
-  /* Assistant: Clippy Window */
+  /* Clippy Window */
   #winClippy {
-    bottom: 50px;
-    right: 20px;
-    width: 320px;
+    bottom: 48px;
+    right: 14px;
+    width: 290px;
     background: #ffffcc;
     color: #000;
     border: 2px solid #000;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
     z-index: 500;
+    display: block;
   }
   #winClippy .window-titlebar {
-    background: #000080;
+    background: var(--win-navy);
     color: #fff;
-    background-image: none;
   }
   #winClippy .window-content {
     color: #000;
-    font-size: 18px;
-    padding: 12px;
+    font-size: 16px;
+    padding: 10px;
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: flex-start;
   }
-  .clippy-img { font-size: 32px; line-height: 1; }
-  .clippy-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-  }
+  .clippy-img { font-size: 26px; line-height: 1; }
+  .clippy-actions { display: flex; gap: 6px; margin-top: 8px; }
   .clippy-btn {
     background: #c0c0c0;
     border: 1px solid #000;
-    padding: 2px 8px;
+    padding: 1px 6px;
     font-family: var(--dos-font);
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
+  }
+
+  /* ========================================================
+     WIN95 RETRO START MENU
+     ======================================================== */
+  #startMenu {
+    position: fixed;
+    bottom: 42px;
+    left: 4px;
+    width: 240px;
+    background: var(--win-gray);
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-black);
+    border-bottom: 2px solid var(--win-black);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.6);
+    z-index: 9999;
+    display: none;
+    flex-direction: row;
+  }
+  .start-sidebar {
+    background: var(--win-navy);
+    color: #fff;
+    width: 32px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 8px;
+    justify-content: center;
+  }
+  .start-sidebar-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: bold;
+  }
+  .start-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 3px 0;
+  }
+  .start-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .start-item:hover, .start-item:active {
+    background: var(--win-navy);
+    color: #fff;
+  }
+  .start-divider {
+    height: 1px;
+    background: var(--win-dark);
+    margin: 4px 2px;
+    border-bottom: 1px solid var(--win-light);
   }
 
   /* ========================================================
      BOTTOM TASKBAR
      ======================================================== */
   .taskbar {
-    height: 40px;
+    height: 42px;
     background: var(--win-gray);
     border-top: 2px solid var(--win-light);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 3px 6px;
+    padding: 2px 6px;
     z-index: 1000;
     color: #000;
   }
@@ -468,7 +550,8 @@
   .taskbar-left {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+    overflow: hidden;
   }
 
   .start-btn {
@@ -477,16 +560,17 @@
     border-left: 2px solid var(--win-light);
     border-right: 2px solid var(--win-black);
     border-bottom: 2px solid var(--win-black);
-    padding: 3px 12px;
+    padding: 3px 8px;
     font-family: var(--dos-font);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     cursor: pointer;
+    white-space: nowrap;
   }
-  .start-btn:active {
+  .start-btn:active, .start-btn.pressed {
     border-top: 2px solid var(--win-black);
     border-left: 2px solid var(--win-black);
     border-right: 2px solid var(--win-light);
@@ -495,7 +579,8 @@
 
   .task-items {
     display: flex;
-    gap: 6px;
+    gap: 4px;
+    overflow-x: auto;
   }
   .task-tab {
     background: var(--win-gray);
@@ -503,12 +588,13 @@
     border-left: 2px solid var(--win-light);
     border-right: 2px solid var(--win-black);
     border-bottom: 2px solid var(--win-black);
-    padding: 2px 10px;
-    font-size: 17px;
+    padding: 2px 6px;
+    font-size: 16px;
     cursor: pointer;
+    white-space: nowrap;
   }
   .task-tab.active {
-    background: #000080;
+    background: var(--win-navy);
     color: #fff;
     border-top: 2px solid var(--win-black);
     border-left: 2px solid var(--win-black);
@@ -519,13 +605,69 @@
   .taskbar-tray {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     border-top: 1.5px solid var(--win-dark);
     border-left: 1.5px solid var(--win-dark);
     border-right: 1.5px solid var(--win-light);
     border-bottom: 1.5px solid var(--win-light);
-    padding: 2px 8px;
-    font-size: 17px;
+    padding: 2px 6px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  /* ========================================================
+     RESPONSIVE MEDIA QUERIES (MOBILE & TABLET)
+     ======================================================== */
+  @media (max-width: 768px) {
+    body { font-size: 18px; }
+    
+    .desktop-icons {
+      right: auto;
+      left: 12px;
+      top: 14px;
+      grid-template-columns: repeat(2, 68px);
+      gap: 12px 8px;
+    }
+    .desktop-icon span { font-size: 14px; }
+    .desktop-icon .icon-img { font-size: 24px; }
+
+    .window {
+      width: 95vw !important;
+      left: 2.5vw !important;
+      top: 20px !important;
+      max-height: 80dvh;
+    }
+    .window-content {
+      max-height: 58dvh;
+      font-size: 17px;
+      padding: 10px;
+    }
+
+    #winTetris {
+      width: 92vw !important;
+      left: 4vw !important;
+    }
+    #tetrisCanvas {
+      width: 170px;
+      height: 306px;
+    }
+
+    #winClippy {
+      display: none; /* hidden on small mobile to preserve screen estate */
+    }
+    
+    .task-tab {
+      font-size: 14px;
+      padding: 2px 4px;
+    }
+    .status-tag { max-width: 150px; font-size: 15px; }
+    .top-links a { font-size: 15px; }
+  }
+
+  @media (max-width: 480px) {
+    .ascii-banner { font-size: 11px; }
+    .status-tag { display: none; }
+    .task-tab:nth-child(n+3) { display: none; } /* Show terminal and logs on narrow screens */
   }
 </style>
 </head>
@@ -535,14 +677,14 @@
   <div id="biosScreen">
     <div class="bios-line bios-white" id="b1">BIOS v3.14 - Ayush Singh Systems Inc.</div>
     <div class="bios-line" id="b2">Checking RAM......... 640KB OK</div>
-    <div class="bios-line" id="b3">Detecting drives.....</div>
+    <div class="bios-line" id="b3">Detecting hardware devices.....</div>
     <div class="bios-line" id="b4">C:\ - 500GB SSD [HEALTHY]</div>
     <div class="bios-line" id="b5">D:\ - Portfolio Archive [MOUNTED]</div>
-    <div class="bios-line bios-white" id="b6" style="margin-top:20px;">Loading AS-OS Kernel.............</div>
+    <div class="bios-line bios-white" id="b6" style="margin-top:12px;">Loading AS-OS Kernel.............</div>
     <div class="bios-line" id="b7">Initializing network interfaces... OK</div>
-    <div class="bios-line" id="b8">Starting display driver... CRT_MODE ACTIVE</div>
-    <div class="bios-line" id="b9">Loading modules: [Java] [Spring Boot] [Kafka] [Redis] [Docker]</div>
-    <div class="bios-line" id="b10">Loading subsystems: [Distributed Systems] [High-Concurrency Engine]</div>
+    <div class="bios-line" id="b8">Display adapter... CRT_MODE [AUTO-ADAPTIVE]</div>
+    <div class="bios-line" id="b9">Loading modules: [Java] [Spring] [Angular] [React Native] [Docker]</div>
+    <div class="bios-line" id="b10">Loading subsystems: [Distributed Architecture] [Touch Drivers]</div>
 
     <div class="progress-wrap" id="progWrap">
       <div class="progress-bar" id="progBar"></div>
@@ -554,25 +696,25 @@
   <div id="splashScreen">
     <div class="splash-box">
       <div class="ascii-banner">
- █████  ██    ██ ██    ██ ███████ ██   ██ 
+█████   ██    ██ ██    ██ ███████ ██   ██ 
 ██   ██  ██  ██  ██    ██ ██      ██   ██ 
 ███████   ████   ██    ██ ███████ ███████ 
 ██   ██    ██    ██    ██      ██ ██   ██ 
 ██   ██    ██     ██████  ███████ ██   ██ 
       </div>
       <div class="splash-sub">Welcome to AS-OS v3.14</div>
-      <div class="splash-role">Backend &amp; Distributed Systems Engineer · New Delhi / Remote</div>
+      <div class="splash-role">Full-Stack &amp; Distributed Systems Engineer · New Delhi</div>
 
       <button class="splash-btn" onclick="enterOS()">▶ EXPLORE PORTFOLIO</button>
       <button class="splash-btn tetris-btn" onclick="enterWithTetris()">🎮 PLAY TETRIS</button>
 
-      <div class="splash-footer">You can switch applications anytime using the bottom taskbar</div>
+      <div class="splash-footer">Touch / Click the START menu or desktop icons to navigate</div>
     </div>
   </div>
 
   <!-- 3. MAIN OS DESKTOP -->
   <div id="osDesktop">
-    <!-- Top Ribbon -->
+    <!-- Top Status Ribbon -->
     <div class="desktop-topbar">
       <div class="status-tag">Available for opportunities</div>
       <div class="top-links">
@@ -582,8 +724,8 @@
       </div>
     </div>
 
-    <!-- Canvas with Draggable Windows & Desktop Icons -->
-    <div class="desktop-canvas" id="canvas">
+    <!-- Desktop Canvas -->
+    <div class="desktop-canvas" id="canvas" onclick="canvasClicked(event)">
 
       <!-- Desktop Icons -->
       <div class="desktop-icons">
@@ -614,7 +756,7 @@
         <div class="window-titlebar">
           <span class="window-title-text">TERMINAL_V1.0.EXE</span>
           <div class="window-controls">
-            <button class="win-btn" onclick="minimizeWindow('winTerminal')">_</button>
+            <button class="win-btn" onclick="closeWindow('winTerminal')">_</button>
             <button class="win-btn" onclick="closeWindow('winTerminal')">X</button>
           </div>
         </div>
@@ -622,17 +764,17 @@
           <div class="term-history" id="termHistory">
             <div>System Status: <span class="green">ONLINE</span></div>
             <div>Memory: 640KB OK</div>
-            <div>Role: Backend Engineer &amp; Distributed Systems</div>
+            <div>Focus: Distributed Systems, Mobile &amp; Modern Web</div>
             <div>Location: New Delhi, India</div>
             <br>
             <div class="green">root@ayush:~# sh ./init_portfolio.sh</div>
-            <div class="green">Portfolio initialized successfully! ✓</div>
+            <div class="green">Loaded Angular, React Native, Java &amp; Cloud pipelines! ✓</div>
             <br>
-            <div>Type <span class="amber">'help'</span> for commands. Try <span class="amber">'projects'</span>, <span class="amber">'skills'</span>, <span class="amber">'logs'</span>, or <span class="amber">'clear'</span>.</div>
+            <div>Type <span class="amber">'help'</span> for commands or tap desktop icons.</div>
           </div>
           <div class="term-input-row">
             <span class="green">root@ayush:~#</span>
-            <input type="text" class="term-input" id="cliInput" autofocus autocomplete="off" />
+            <input type="text" class="term-input" id="cliInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
           </div>
         </div>
       </div>
@@ -642,31 +784,31 @@
         <div class="window-titlebar">
           <span class="window-title-text">SYSTEM_LOGS.TXT</span>
           <div class="window-controls">
-            <button class="win-btn" onclick="minimizeWindow('winLogs')">_</button>
+            <button class="win-btn" onclick="closeWindow('winLogs')">_</button>
             <button class="win-btn" onclick="closeWindow('winLogs')">X</button>
           </div>
         </div>
         <div class="window-content">
-          <div style="color:var(--dos-amber); margin-bottom:14px;">[EXPERIENCE_LOG]</div>
+          <div style="color:var(--dos-amber); margin-bottom:12px;">[EXPERIENCE_LOG]</div>
           
           <div class="log-item">
             <div class="log-date">[FULL-TIME]</div>
             <div class="log-title">Software Developer — AVSP Infotech</div>
-            <div class="log-bullet">Engineered modular Java &amp; Spring Boot microservices for enterprise backends.</div>
-            <div class="log-bullet">Designed relational database schemas with high-throughput REST APIs.</div>
+            <div class="log-bullet">Engineered modular Java, Spring Boot &amp; PHP backends for production systems.</div>
+            <div class="log-bullet">Designed responsive UI frontends and high-throughput REST APIs with relational databases.</div>
           </div>
 
           <div class="log-item">
             <div class="log-date">[2021 — PRESENT]</div>
-            <div class="log-title">Full-Stack Solutions — Freelance</div>
-            <div class="log-bullet">Engineered portals using PHP (Laravel), SQL, and modern JavaScript.</div>
-            <div class="log-bullet">Automated admit-card PDF generators and dynamic inventory systems.</div>
+            <div class="log-title">Full-Stack &amp; Mobile Engineer — Freelance</div>
+            <div class="log-bullet">Built cross-platform interfaces using Angular, React, and React Native.</div>
+            <div class="log-bullet">Engineered school portals, admit-card generators, and dynamic inventory systems.</div>
           </div>
 
           <div class="log-item">
-            <div class="log-date">[JUL 2026 — JUL 2028]</div>
-            <div class="log-title">Master of Computer Applications — Computer Science</div>
-            <div class="log-bullet">Specialized focus on distributed network architecture and cloud computing.</div>
+            <div class="log-date">[EDUCATION]</div>
+            <div class="log-title">Computer Science &amp; Engineering</div>
+            <div class="log-bullet">Deep core focus on Data Structures, Algorithms, and Distributed Computing.</div>
           </div>
         </div>
       </div>
@@ -676,21 +818,39 @@
         <div class="window-titlebar">
           <span class="window-title-text">TECH_STACK.CFG</span>
           <div class="window-controls">
-            <button class="win-btn" onclick="minimizeWindow('winStack')">_</button>
+            <button class="win-btn" onclick="closeWindow('winStack')">_</button>
             <button class="win-btn" onclick="closeWindow('winStack')">X</button>
           </div>
         </div>
         <div class="window-content">
-          <div style="margin-bottom:10px;">LOADED_MODULES:</div>
+          <div style="margin-bottom:8px;">[LOADED_MODULES &amp; SKILLS]:</div>
           
-          <div class="stack-category">[Backend &amp; Languages]</div>
-          <div>Java, Spring Boot, Spring AI, PHP (Laravel), SQL, JavaScript, C++</div>
+          <div class="stack-category">Frontend &amp; Mobile:</div>
+          <div class="stack-badges">
+            <span class="stack-pill">Angular</span>
+            <span class="stack-pill">React Native</span>
+            <span class="stack-pill">React.js</span>
+            <span class="stack-pill">JavaScript / TypeScript</span>
+            <span class="stack-pill">HTML5 / CSS3</span>
+          </div>
 
-          <div class="stack-category">[Distributed &amp; Concurrency]</div>
-          <div>Apache Kafka, Redis Pub/Sub, Distributed Locking, WebSockets, SSE</div>
+          <div class="stack-category">Backend &amp; Languages:</div>
+          <div class="stack-badges">
+            <span class="stack-pill">Java</span>
+            <span class="stack-pill">Spring Boot</span>
+            <span class="stack-pill">PHP (Laravel)</span>
+            <span class="stack-pill">C++</span>
+            <span class="stack-pill">Node.js</span>
+          </div>
 
-          <div class="stack-category">[Frontend &amp; Practices]</div>
-          <div>React.js, System Design, Data Structures &amp; Algorithms (350+ solved), Docker, Git</div>
+          <div class="stack-category">Distributed &amp; Datastores:</div>
+          <div class="stack-badges">
+            <span class="stack-pill">Apache Kafka</span>
+            <span class="stack-pill">Redis</span>
+            <span class="stack-pill">MySQL</span>
+            <span class="stack-pill">PostgreSQL</span>
+            <span class="stack-pill">Docker</span>
+          </div>
         </div>
       </div>
 
@@ -699,47 +859,54 @@
         <div class="window-titlebar">
           <span class="window-title-text">PROJECT_ARCHIVE.EXE</span>
           <div class="window-controls">
-            <button class="win-btn" onclick="minimizeWindow('winProjects')">_</button>
+            <button class="win-btn" onclick="closeWindow('winProjects')">_</button>
             <button class="win-btn" onclick="closeWindow('winProjects')">X</button>
           </div>
         </div>
         <div class="window-content">
           <div class="proj-card">
             <div class="proj-title">1. Payment Orchestration Platform</div>
-            <div>Handles checkout sessions, idempotent refunds, and guaranteed webhook deliveries with dead-letter retries.</div>
-            <div class="proj-tags">TAGS: Spring Boot · Kafka · PostgreSQL · Resilience4j</div>
+            <div>Handles checkout sessions, idempotent refunds, and guaranteed webhook deliveries with dead-letter queues.</div>
+            <div class="proj-tags">TAGS: Spring Boot · Kafka · PostgreSQL · Docker</div>
           </div>
 
           <div class="proj-card">
-            <div class="proj-title">2. Student AI Query Streaming Engine</div>
-            <div>Real-time streaming assistant for document queries, syllabus exploration, and PDF vector search.</div>
-            <div class="proj-tags">TAGS: Spring AI · SSE Token Streaming · Vector DB · React</div>
+            <div class="proj-title">2. Cross-Platform Mobile Suite</div>
+            <div>Native cross-platform client app with state syncing, offline cached data, and dynamic push messaging.</div>
+            <div class="proj-tags">TAGS: React Native · Angular · REST · TypeScript</div>
           </div>
 
           <div class="proj-card">
             <div class="proj-title">3. High-Concurrency Ticket Engine</div>
-            <div>Prevents double-booking through timed Redis distributed locks and strict inventory transaction isolation.</div>
+            <div>Prevents double-booking race conditions through timed Redis distributed locks and transactional isolation.</div>
             <div class="proj-tags">TAGS: Redis Locks · Concurrency · Spring Boot · MySQL</div>
           </div>
         </div>
       </div>
 
-      <!-- Window 5: Tetris Mini-game -->
+      <!-- Window 5: Tetris Mini-game with On-Screen Controls -->
       <div class="window" id="winTetris">
         <div class="window-titlebar">
           <span class="window-title-text">TETRIS.EXE</span>
           <div class="window-controls">
-            <button class="win-btn" onclick="minimizeWindow('winTetris')">_</button>
+            <button class="win-btn" onclick="closeWindow('winTetris')">_</button>
             <button class="win-btn" onclick="closeWindow('winTetris')">X</button>
           </div>
         </div>
         <div class="window-content" style="text-align:center;">
-          <canvas id="tetrisCanvas" width="200" height="360"></canvas>
+          <canvas id="tetrisCanvas" width="180" height="324"></canvas>
           <div class="tetris-info">
             <span>SCORE: <b id="tScore">0</b></span>
             <span>LINES: <b id="tLines">0</b></span>
           </div>
-          <div style="font-size:15px; color:#cbd5e1; margin-top:6px;">Controls: ← → to move | ↑ to rotate | ↓ drop</div>
+
+          <!-- On-screen arcade controls for touch & mouse -->
+          <div class="tetris-dpad">
+            <button class="dpad-btn" onclick="tetrisInput('left')">◀ LEFT</button>
+            <button class="dpad-btn" onclick="tetrisInput('rotate')">▲ ROT</button>
+            <button class="dpad-btn" onclick="tetrisInput('right')">RIGHT ▶</button>
+            <button class="dpad-btn" onclick="tetrisInput('down')">▼ DROP</button>
+          </div>
         </div>
       </div>
 
@@ -754,12 +921,30 @@
         <div class="window-content">
           <div class="clippy-img">📎</div>
           <div>
-            <div id="clippyMsg">Did you know Ayush has built distributed systems with Kafka and solved 350+ DSA problems? 🚀</div>
+            <div id="clippyMsg">Did you know Ayush builds apps using Angular, React Native, and Spring Boot? 🚀</div>
             <div class="clippy-actions">
               <button class="clippy-btn" onclick="nextClippy()">Next Tip</button>
-              <button class="clippy-btn" onclick="closeClippy()">Go Away</button>
+              <button class="clippy-btn" onclick="closeClippy()">Dismiss</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Start Menu Popup -->
+      <div id="startMenu">
+        <div class="start-sidebar">
+          <div class="start-sidebar-text">AS-OS v3.14</div>
+        </div>
+        <div class="start-list">
+          <div class="start-item" onclick="openFromStart('winTerminal')">📟 Terminal</div>
+          <div class="start-item" onclick="openFromStart('winLogs')">📝 System Logs</div>
+          <div class="start-item" onclick="openFromStart('winStack')">⚙️ Tech Stack</div>
+          <div class="start-item" onclick="openFromStart('winProjects')">📁 Projects</div>
+          <div class="start-divider"></div>
+          <div class="start-item" onclick="openFromStart('winTetris')">🕹️ Play Tetris</div>
+          <div class="start-divider"></div>
+          <a class="start-item" href="https://github.com/parmartechbytes" target="_blank" rel="noopener">🌐 GitHub</a>
+          <a class="start-item" href="mailto:ayushsingh11225@gmail.com">✉️ Contact Email</a>
         </div>
       </div>
 
@@ -768,28 +953,28 @@
     <!-- Bottom Taskbar -->
     <footer class="taskbar">
       <div class="taskbar-left">
-        <button class="start-btn" onclick="toggleStartMenu()">
+        <button class="start-btn" id="startBtn" onclick="toggleStartMenu(event)">
           <span>🏁</span> START
         </button>
         <div class="task-items">
-          <div class="task-tab active" id="tabTerminal" onclick="openWindow('winTerminal')">TERM</div>
+          <div class="task-tab" id="tabTerminal" onclick="openWindow('winTerminal')">TERM</div>
           <div class="task-tab" id="tabLogs" onclick="openWindow('winLogs')">LOGS</div>
           <div class="task-tab" id="tabStack" onclick="openWindow('winStack')">SKILLS</div>
-          <div class="task-tab" id="tabProjects" onclick="openWindow('winProjects')">PROJECTS</div>
+          <div class="task-tab" id="tabProjects" onclick="openWindow('winProjects')">PROJ</div>
+          <div class="task-tab" id="tabTetris" onclick="openWindow('winTetris')">GAME</div>
         </div>
       </div>
 
       <div class="taskbar-tray">
-        <span>🔊</span>
         <span>👤 root</span>
-        <span id="osClock">12:00:00</span>
+        <span id="osClock">12:00</span>
       </div>
     </footer>
   </div>
 
   <script>
     /* ========================================================
-       1. BIOS BOOT TIMELINE
+       1. BIOS BOOT SEQUENCE
        ======================================================== */
     const biosLines = ["b1","b2","b3","b4","b5","b6","b7","b8","b9","b10"];
     let lineIndex = 0;
@@ -799,7 +984,7 @@
         const el = document.getElementById(biosLines[lineIndex]);
         if (el) el.style.opacity = 1;
         lineIndex++;
-        setTimeout(stepBios, 160);
+        setTimeout(stepBios, 140);
       } else {
         document.getElementById('progWrap').style.display = 'block';
         document.getElementById('progText').style.display = 'block';
@@ -820,20 +1005,22 @@
           setTimeout(() => {
             document.getElementById('biosScreen').style.display = 'none';
             document.getElementById('splashScreen').style.display = 'flex';
-          }, 350);
+          }, 300);
         }
-      }, 40);
+      }, 35);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(stepBios, 200);
+      setTimeout(stepBios, 150);
       updateClock();
       setInterval(updateClock, 1000);
     });
 
     /* ========================================================
-       2. TRANSITIONS & WINDOW CONTROLS
+       2. WINDOWS & NAVIGATION LOGIC
        ======================================================== */
+    let highestZ = 100;
+
     function enterOS() {
       document.getElementById('splashScreen').style.display = 'none';
       document.getElementById('osDesktop').style.display = 'flex';
@@ -843,10 +1030,7 @@
     function enterWithTetris() {
       enterOS();
       openWindow('winTetris');
-      initTetris();
     }
-
-    let highestZ = 100;
 
     function openWindow(winId) {
       const el = document.getElementById(winId);
@@ -854,7 +1038,18 @@
         el.style.display = 'block';
         highestZ++;
         el.style.zIndex = highestZ;
+
+        // Auto center on mobile/tablet viewports
+        if (window.innerWidth <= 768) {
+          el.style.left = '2.5vw';
+          el.style.top = '25px';
+        }
+
+        if (winId === 'winTetris') {
+          initTetris();
+        }
       }
+      closeStartMenu();
     }
 
     function closeWindow(winId) {
@@ -862,25 +1057,43 @@
       if (el) el.style.display = 'none';
     }
 
-    function minimizeWindow(winId) {
-      closeWindow(winId);
+    function toggleStartMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('startMenu');
+      const btn = document.getElementById('startBtn');
+      const isVisible = menu.style.display === 'flex';
+      menu.style.display = isVisible ? 'none' : 'flex';
+      btn.classList.toggle('pressed', !isVisible);
     }
 
-    function toggleStartMenu() {
-      openWindow('winTerminal');
+    function closeStartMenu() {
+      const menu = document.getElementById('startMenu');
+      const btn = document.getElementById('startBtn');
+      if (menu) menu.style.display = 'none';
+      if (btn) btn.classList.remove('pressed');
+    }
+
+    function openFromStart(winId) {
+      openWindow(winId);
+      closeStartMenu();
+    }
+
+    function canvasClicked(e) {
+      if (!e.target.closest('#startMenu') && !e.target.closest('#startBtn')) {
+        closeStartMenu();
+      }
     }
 
     function updateClock() {
       const d = new Date();
       const h = String(d.getHours()).padStart(2, '0');
       const m = String(d.getMinutes()).padStart(2, '0');
-      const s = String(d.getSeconds()).padStart(2, '0');
       const el = document.getElementById('osClock');
-      if (el) el.textContent = `${h}:${m}:${s}`;
+      if (el) el.textContent = `${h}:${m}`;
     }
 
     /* ========================================================
-       3. DRAGGABLE WINDOW SYSTEM
+       3. DRAGGABLE WINDOW SYSTEM (DESKTOP & TOUCH SAFE)
        ======================================================== */
     document.querySelectorAll('.window').forEach(win => {
       const header = win.querySelector('.window-titlebar');
@@ -888,22 +1101,41 @@
 
       let offsetX = 0, offsetY = 0, isDragging = false;
 
-      header.addEventListener('mousedown', e => {
-        if (e.target.tagName === 'BUTTON') return;
+      function startDrag(clientX, clientY) {
+        if (window.innerWidth <= 768) return; // Keep fixed overlay on mobile screens
         isDragging = true;
         highestZ++;
         win.style.zIndex = highestZ;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-      });
+        offsetX = clientX - win.offsetLeft;
+        offsetY = clientY - win.offsetTop;
+      }
 
-      document.addEventListener('mousemove', e => {
+      function moveDrag(clientX, clientY) {
         if (!isDragging) return;
-        win.style.left = (e.clientX - offsetX) + 'px';
-        win.style.top = (e.clientY - offsetY) + 'px';
-      });
+        win.style.left = (clientX - offsetX) + 'px';
+        win.style.top = (clientY - offsetY) + 'px';
+      }
 
-      document.addEventListener('mouseup', () => isDragging = false);
+      function endDrag() { isDragging = false; }
+
+      header.addEventListener('mousedown', e => {
+        if (e.target.tagName === 'BUTTON') return;
+        startDrag(e.clientX, e.clientY);
+      });
+      document.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
+      document.addEventListener('mouseup', endDrag);
+
+      header.addEventListener('touchstart', e => {
+        if (e.target.tagName === 'BUTTON') return;
+        const t = e.touches[0];
+        startDrag(t.clientX, t.clientY);
+      }, { passive: true });
+      document.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const t = e.touches[0];
+        moveDrag(t.clientX, t.clientY);
+      }, { passive: true });
+      document.addEventListener('touchend', endDrag);
     });
 
     /* ========================================================
@@ -934,34 +1166,27 @@
       switch (cmd) {
         case 'help':
           appendTermLine("Available commands:");
-          appendTermLine("  projects  - Inspect built systems");
-          appendTermLine("  skills    - View toolchain & modules");
-          appendTermLine("  logs      - View experience timeline");
-          appendTermLine("  tetris    - Launch Tetris game");
-          appendTermLine("  contact   - Display communication endpoints");
-          appendTermLine("  clear     - Wipe console screen");
+          appendTermLine("  projects - Inspect built applications");
+          appendTermLine("  skills   - View Angular, React Native, Java stack");
+          appendTermLine("  logs     - Open experience history");
+          appendTermLine("  tetris   - Play retro Tetris");
+          appendTermLine("  clear    - Clear screen");
           break;
         case 'projects':
           openWindow('winProjects');
-          appendTermLine("Opening PROJECT_ARCHIVE.EXE...", "green");
+          appendTermLine("Launching PROJECT_ARCHIVE.EXE...", "green");
           break;
         case 'skills':
           openWindow('winStack');
-          appendTermLine("Opening TECH_STACK.CFG...", "green");
+          appendTermLine("Launching TECH_STACK.CFG...", "green");
           break;
         case 'logs':
           openWindow('winLogs');
-          appendTermLine("Opening SYSTEM_LOGS.TXT...", "green");
+          appendTermLine("Launching SYSTEM_LOGS.TXT...", "green");
           break;
         case 'tetris':
           openWindow('winTetris');
-          initTetris();
-          appendTermLine("Launching TETRIS.EXE...", "amber");
-          break;
-        case 'contact':
-          appendTermLine("Email: ayushsingh11225@gmail.com");
-          appendTermLine("WhatsApp: +91 83075 71831");
-          appendTermLine("GitHub: github.com/parmartechbytes");
+          appendTermLine("Starting TETRIS.EXE...", "amber");
           break;
         case 'clear':
           termHistory.innerHTML = '';
@@ -969,18 +1194,17 @@
         case '':
           break;
         default:
-          appendTermLine(`Command not recognized: '${cmd}'. Type 'help' for valid commands.`, 'amber');
+          appendTermLine(`Command not found: '${cmd}'. Type 'help' for command list.`, 'amber');
       }
     }
 
     /* ========================================================
-       5. CLIPPY RANDOM TIPS
+       5. CLIPPY HELPER
        ======================================================== */
     const tips = [
-      "Did you know Ayush has built distributed systems with Kafka and solved 350+ DSA problems? 🚀",
-      "You can drag any blue window by grabbing its striped title bar!",
-      "Type 'tetris' in the terminal or launch it from the desktop icon.",
-      "Ayush builds production microservices in Java, Spring Boot, and Laravel."
+      "Ayush builds modern apps with Angular, React Native, and Spring Boot! 🚀",
+      "Tap the START menu in the lower corner to browse all apps quickly.",
+      "Play Tetris with arrow keys or the on-screen buttons below the board!"
     ];
     let tipIdx = 0;
 
@@ -993,23 +1217,24 @@
     }
 
     /* ========================================================
-       6. TETRIS MINI-GAME IMPLEMENTATION
+       6. ROBUST TETRIS ENGINE (KEYBOARD + TOUCH SUPPORT)
        ======================================================== */
     const canvas = document.getElementById('tetrisCanvas');
     const ctx = canvas.getContext('2d');
-    const COLS = 10, ROWS = 18, BLOCK = 20;
+    const COLS = 10, ROWS = 18;
+    const BLOCK = 18; // fits 180x324 canvas
 
     let board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
     let score = 0, lines = 0, gameTimer = null;
 
     const PIECES = [
-      [[1,1,1,1]], // I
-      [[1,1],[1,1]], // O
-      [[0,1,0],[1,1,1]], // T
-      [[1,0,0],[1,1,1]], // L
-      [[0,0,1],[1,1,1]], // J
-      [[0,1,1],[1,1,0]], // S
-      [[1,1,0],[0,1,1]]  // Z
+      [[1,1,1,1]],          // I
+      [[1,1],[1,1]],        // O
+      [[0,1,0],[1,1,1]],    // T
+      [[1,0,0],[1,1,1]],    // L
+      [[0,0,1],[1,1,1]],    // J
+      [[0,1,1],[1,1,0]],    // S
+      [[1,1,0],[0,1,1]]     // Z
     ];
 
     let current = null;
@@ -1033,10 +1258,10 @@
       for (let r = 0; r < current.shape.length; r++) {
         for (let c = 0; c < current.shape[r].length; c++) {
           if (current.shape[r][c]) {
-            const newX = current.x + c;
-            const newY = current.y + r;
-            if (newX < 0 || newX >= COLS || newY >= ROWS) return true;
-            if (newY >= 0 && board[newY][newX]) return true;
+            const nx = current.x + c;
+            const ny = current.y + r;
+            if (nx < 0 || nx >= COLS || ny >= ROWS) return true;
+            if (ny >= 0 && board[ny][nx]) return true;
           }
         }
       }
@@ -1073,7 +1298,7 @@
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw settled blocks
+      // Render stationary blocks
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
           if (board[r][c]) {
@@ -1083,7 +1308,7 @@
         }
       }
 
-      // Draw moving piece
+      // Render active falling block
       if (current) {
         ctx.fillStyle = '#facc15';
         for (let r = 0; r < current.shape.length; r++) {
@@ -1109,29 +1334,39 @@
     function initTetris() {
       if (!gameTimer) {
         newPiece();
-        gameTimer = setInterval(tick, 500);
+        draw();
+        gameTimer = setInterval(tick, 450);
       }
     }
 
+    function tetrisInput(action) {
+      if (!current) return;
+      if (action === 'left') {
+        current.x--;
+        if (collide()) current.x++;
+      } else if (action === 'right') {
+        current.x++;
+        if (collide()) current.x--;
+      } else if (action === 'down') {
+        current.y++;
+        if (collide()) { current.y--; merge(); }
+      } else if (action === 'rotate') {
+        const rotated = current.shape[0].map((_, i) => current.shape.map(row => row[i]).reverse());
+        const prev = current.shape;
+        current.shape = rotated;
+        if (collide()) current.shape = prev;
+      }
+      draw();
+    }
+
+    // Physical keyboard controls
     window.addEventListener('keydown', e => {
-      if (document.getElementById('winTetris').style.display === 'block') {
-        if (!current) return;
-        if (e.key === 'ArrowLeft') {
-          current.x--;
-          if (collide()) current.x++;
-        } else if (e.key === 'ArrowRight') {
-          current.x++;
-          if (collide()) current.x--;
-        } else if (e.key === 'ArrowDown') {
-          current.y++;
-          if (collide()) { current.y--; merge(); }
-        } else if (e.key === 'ArrowUp') {
-          const rotated = current.shape[0].map((_, i) => current.shape.map(row => row[i]).reverse());
-          const prev = current.shape;
-          current.shape = rotated;
-          if (collide()) current.shape = prev;
-        }
-        draw();
+      const tetrisWin = document.getElementById('winTetris');
+      if (tetrisWin && tetrisWin.style.display === 'block') {
+        if (e.key === 'ArrowLeft') { tetrisInput('left'); e.preventDefault(); }
+        else if (e.key === 'ArrowRight') { tetrisInput('right'); e.preventDefault(); }
+        else if (e.key === 'ArrowDown') { tetrisInput('down'); e.preventDefault(); }
+        else if (e.key === 'ArrowUp') { tetrisInput('rotate'); e.preventDefault(); }
       }
     });
   </script>
